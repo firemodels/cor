@@ -1,0 +1,95 @@
+% !TEX root = Correlation_Guide.tex
+
+\chapter{Sprinkler Activation Time}
+\label{Sprinkler_Activation_Time_Chapter}
+
+Much like an electrical cable, a sprinkler is merely a ``target'' with a particular set of thermal properties, such as the response time index (RTI) that indicates the sensitivity of the fusible link or glass bulb. Activation is assumed to occur when the link or bulb temperatures reaches a predetermined threshold temperature.
+
+\subsection*{Description}
+
+For a steady-state fire, the correlation of Alpert~\cite{SFPE:Alpert} predicts that the activation time of a sprinkler, $t\sb{act}$~(\si{s}), is given by~\cite{NFPA}
+\be
+t\sb{act} =  \frac{\mathrm{RTI}}{\sqrt{u\sb{jet}}} \ln \left( \frac{T\sb{jet} - T_\infty}{T\sb{jet} - T\sb{act}} \right)
+\label{eq:Alpert}
+\ee
+where RTI is the response time index of the sprinkler~(\si{(m.s)^{1/2}}), $T_\infty$ is the ambient air temperature~(\si{\celsius}), and $T\sb{act}$ is the activation temperature of the sprinkler~(\si{\celsius}). The ceiling jet temperature, $T\sb{jet}$ (\si{\celsius}), is given by
+\be
+T\sb{jet} = \left\{ \begin{array}{cl}
+   \frac{16.9 \dot Q^{2/3}}{H^{5/3}} + T_\infty  &  r/H <= 0.18 \\[0.1in]
+   \frac{5.38 (\dot Q / r)^{2/3}}{H} + T_\infty  &  r/H >  0.18
+   \end{array} \right.
+\label{eq:sprinkler_Tjet}
+\ee
+where $\dot Q$ is the total HRR~(kW), $H$ is the height of the ceiling above the fuel~(m), and $r$~is the radial distance to the detector~(m).
+The ceiling jet velocity, $u\sb{jet}$ (\si{m/s}), is given by
+\be
+u\sb{jet} = \left\{ \begin{array}{cl}
+   0.947 \left( \frac{\dot Q}{H} \right)^{1/3}  &  r/H <= 0.15 \\[0.1in]
+   \frac{0.197 \dot Q^{1/3} H^{1/2}}{r^{5/6}}   &  r/H >  0.15
+   \end{array} \right.
+\label{eq:sprinkler_ujet}
+\ee
+
+Note that some of these cases assume a quasi-steady approach for a fire source $\dot Q$ that follows a specified $t$-squared growth rate, which is given by Eq.~\ref{eq:t_squared}.
+
+For cases in which the fire was located against a wall or corner, these correlations are adjusted based on the method of reflection. For a fire adjacent to a flat wall, 2$\dot Q$ is substituted for $\dot Q$; and for a fire in a 90-degree corner, 4$\dot Q$ is substituted for $\dot Q$~\cite{SFPE:Alpert}. This adjustment is denoted in the input parameters as the location factor. For a given case, the location factor has a value of 1, 2, or 4, which corresponds to a fire away from walls or corners, a fire adjacent to a wall, or a fire located in a corner, respectively.
+
+
+\clearpage
+
+
+\subsection*{Verification}
+
+This example case is based on Test 1 from the Vettori Flat Ceiling~\cite{Vettori:1} series. This test involved residential quick response sprinklers located on a flat ceiling in a compartment with a closed door, a methane burner, and no ventilation.
+
+\begin{table}[!ht]
+\caption[Verification case, sprinkler activation time]
+{Verification case, sprinkler activation time.}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{}                                                                 \\
+\multicolumn{3}{|c|}{User-Specified Input}                                             \\
+\multicolumn{3}{|c|}{}                                                                 \\ \hline
+\multicolumn{2}{|c|}{}                             &  \multicolumn{1}{c|}{}            \\
+\multicolumn{2}{|l|}{\rb{Parameter}}               &  \multicolumn{1}{c|}{\rb{Value}}  \\ \hline \hline
+\multicolumn{2}{|l|}{$\alpha$ (kW/s$^2$)}          &  \multicolumn{1}{c|}{0.105}       \\ \hline
+\multicolumn{2}{|l|}{Location Factor}              &  \multicolumn{1}{c|}{1}           \\ \hline
+\multicolumn{2}{|l|}{RTI (\si{(m.s)^{1/2}})}       &  \multicolumn{1}{c|}{55}          \\ \hline
+\multicolumn{2}{|l|}{$T\sb{act}$ (\si{\celsius})}  &  \multicolumn{1}{c|}{68}          \\ \hline
+\multicolumn{2}{|l|}{$r$ (m)}                      &  \multicolumn{1}{c|}{2.20}        \\ \hline
+\multicolumn{2}{|l|}{$H$ (m)}                      &  \multicolumn{1}{c|}{2.09}        \\ \hline
+\multicolumn{2}{|l|}{$T_\infty$ (\si{\celsius})}   &  \multicolumn{1}{c|}{16.6}        \\ \hline
+\multicolumn{2}{c}{}                                                                   \\ \hline
+\multicolumn{3}{|c|}{}                                                                 \\
+\multicolumn{3}{|c|}{Calculated Output}                                                \\
+\multicolumn{3}{|c|}{}                                                                 \\ \hline
+           &             &                                                             \\
+\rb{Time}  &  \rb{HRR}   &  \rb{Activation Time}                                       \\
+\rb{(s)}   &  \rb{(kW)}  &  \rb{(s)}                                                   \\ \hline \hline
+50         &  262.5      &  98.2                                                       \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+% Note that the FDTs spreadsheet uses incorrect coefficients in Alpert's ceiling jet correlation, which gives an activation time of 98.74 s.
+
+
+\clearpage
+
+
+\subsection*{Validation}
+
+A summary of the comparisons between predicted and measured sprinkler activation times is shown in Fig.~\ref{Sprinkler Activation Time}.
+
+\begin{figure}[!ht]
+\begin{center}
+\begin{tabular}{l}
+\includegraphics[width=4.0in]{SCRIPT_FIGURES/Scatterplots/Sprinkler_Activation_Time}
+\end{tabular}
+\end{center}
+\caption[Summary of sprinkler activation time predictions]
+{Summary of sprinkler activation time predictions.}
+\label{Sprinkler Activation Time}
+\end{figure}
+

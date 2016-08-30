@@ -1,0 +1,306 @@
+% !TEX root = Correlation_Guide.tex
+
+\chapter{Target Temperature}
+\label{Target_Temperature_Chapter}
+
+The calculation of target temperature is a common objective of fire modeling analyses. The targets in this validation study include electrical cables as well as unprotected and protected steel members.
+
+\section{Cable Failure Time}
+\label{sec:Cable_Failure_Time}
+
+\subsection*{Description}
+
+Even though an electrical cable is considered a ``target'', the cable failure time quantity is included in this study to assess the models' ability to predict the time to cable failure. This is an indirect way of assessing the model prediction of temperature. The model only predicts the interior temperature of the cable, and the failure time is considered as the time at which the predicted temperature rises above an experimentally determined value.
+
+The thermally-induced electrical failure (THIEF) of a cable can be predicted via a simple one-dimensional heat transfer calculation, under the assumption that the cable can be treated as a homogeneous cylinder~\cite{CAROLFIRE}. The governing equation for the cable temperature,
+$T(r,t)$~(\si{\celsius}), is given by
+\be
+\rho c \left( \frac{\partial T}{\partial t} \right) = \frac{1}{r} \frac{\partial}{\partial r} k r \left( \frac{\partial T}{\partial r} \right)
+\label{eq:cable_temp}
+\ee
+where $\rho$, $c$ and $k$ are the effective density~(\si{kg/m^3}), specific heat~(\si{J/(g.K)}), and thermal conductivity~(\si{W/m.K}) of the solid, respectively, and $r$ is the radius of the cable~(\si{m}).
+The boundary condition at the exterior boundary, $r = R$, is defined as
+\be
+\dot q'' = k \left( \frac{\partial T}{\partial r} \right) (R,t)
+\ee
+where $\dot q''$ is the assumed axially-symmetric heat flux to the exterior surface of the cable~(\si{kW/m^2}).
+The net heat flux at the surface of the cable is determined from the exposing gas temperature surrounding the cable at the $n$-th time step, $T\sb{g}(t^n)$
+\be
+\dot q''(t^n) = \varepsilon \sigma (T\sb{g}(t^n)^4 - (T\sb{s}^n)^4) + h (T\sb{g}(t^n) - T\sb{s}^n)
+\label{eq:cable_net_heat_flux}
+\ee
+where $\varepsilon$ is the emissivity of the cable surface (assumed to be 0.95), $\sigma$ is the Stefan-Boltzmann constant (\SI{5.67e-8}{W/(m^2.K^4)}), $h$ is the convective heat transfer coefficient (assumed to be \SI{10}{W/(m^2.K)}, which is typical of free convection), $T\sb{g}(t^n)$ is the effective gas temperature at the $n$-th time step~(\si{K}), and $T\sb{s}^n$ is the surface temperature of the cable~(\si{K}).
+
+
+\clearpage
+
+
+A slight complication of the solution methodology described above is in situations where the cable is surrounded by a protective layer like a conduit, armor jacket, or tray covering. In CAROLFIRE, only conduits were considered in the modeling, but other protective measures can be handled in similar fashion, assuming test data is available to validate the various physical assumptions.
+
+A conduit forms a thermal barrier between the hot gases of a fire and the cable itself. A simple way to incorporate its effect into the THIEF model is to replace the ``exposing'' gas temperature, $T\sb{g}$, in Eq.~\ref{eq:cable_net_heat_flux} by the conduit's temperature, $T\sb{c}$. In other words, the cable no longer ``sees'' the hot gases from the fire, but rather the interior surface of the conduit.
+
+A steel conduit may be assumed to exhibit thermally-thin behavior; that is, its conductivity is so large that for all practical purposes it can be assumed that its exterior and interior surface temperatures are equal. Its temperature increases due to the heat flux from the hot gases at its exterior surface, which is given by
+\be
+\dot q''\sb{ext}(t^n) = \varepsilon\sb{c} \sigma (T\sb{g}(t^n)^4 - (T\sb{c}^n)^4) + h (T\sb{g}(t^n) - T\sb{c}^n)
+\ee
+where $T\sb{c}^n$ is the conduit temperature at the $n$-th time step~(\si{K}), and $\varepsilon\sb{c}$ is the emissivity of its surface (assumed to be 0.85, which is typical of non-polished steel). Heat is transferred from the interior surface of the conduit to the cable surface via radiation and convection
+\be
+\dot q''\sb{int}(t^n) = F \sigma ((T\sb{c}^n)^4 - (T\sb{s}^n)^4) + h (T\sb{c}^n - T\sb{s}^n)
+\ee
+where
+\be
+F = \left( \left( \frac{R\sb{c}}{R} \right) \frac{1}{\varepsilon} + \frac{1-\varepsilon\sb{c}}{\varepsilon\sb{c}} \right)^{-1}
+\ee
+where $R\sb{c}$ is the inner radius of the conduit~(\si{m}). The view factor, $F$, was based on the assumption that the conduit and cable are concentric cylinders~\cite{CAROLFIRE}.
+
+\clearpage
+
+
+\subsection*{Verification}
+
+This example case is based on Penlight Test 7 from the Cable Response to Live Fire (CAROLFIRE)~\cite{CAROLFIRE} series. This test involved a cable inside of conduit that was located in a heated cylindrical enclosure.
+
+\begin{table}[!ht]
+\caption[Verification case, cable failure time]
+{Verification case, cable failure time.}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\multicolumn{4}{|c|}{}                                                                                   \\
+\multicolumn{4}{|c|}{User-Specified Input}                                                               \\
+\multicolumn{4}{|c|}{}                                                                                   \\ \hline
+\multicolumn{2}{|c|}{}                             &  \multicolumn{2}{c|}{}                              \\
+\multicolumn{2}{|l|}{\rb{Parameter}}               &  \multicolumn{2}{l|}{\rb{Value}}                    \\ \hline \hline
+\multicolumn{2}{|l|}{Time Ramp}                    &  \multicolumn{2}{l|}{0, 80, 820, 1240, 1800, 1900}  \\ \hline
+\multicolumn{2}{|l|}{Temperature Ramp}             &  \multicolumn{2}{l|}{24, 460, 460, 460, 460, 0}     \\ \hline
+\multicolumn{2}{|l|}{Cable Diameter (mm)}          &  \multicolumn{2}{l|}{16.3}                          \\ \hline
+\multicolumn{2}{|l|}{Mass per Unit Length (kg/m)}  &  \multicolumn{2}{l|}{0.529}                         \\ \hline
+\multicolumn{2}{|l|}{Jacket Thickness (mm)}        &  \multicolumn{2}{l|}{1.5}                           \\ \hline
+\multicolumn{2}{|l|}{Conduit Diameter (mm)}        &  \multicolumn{2}{l|}{50}                            \\ \hline
+\multicolumn{2}{|l|}{Conduit Thickness (mm)}       &  \multicolumn{2}{l|}{4.9}                           \\ \hline
+\multicolumn{2}{|l|}{$T_\infty$ (\si{\celsius})}   &  \multicolumn{2}{l|}{24}                            \\ \hline
+\multicolumn{2}{c}{}                                                                                     \\ \hline
+\multicolumn{4}{|c|}{}                                                                                   \\
+\multicolumn{4}{|c|}{Calculated Output}                                                                  \\
+\multicolumn{4}{|c|}{}                                                                                   \\ \hline
+           &                        &                        &                                           \\
+           &  \rb{Exposing}         &  \rb{Cable}            &  \rb{Conduit}                             \\
+\rb{Time}  &  \rb{Temperature}      &  \rb{Temperature}      &  \rb{Temperature}                         \\
+\rb{(s)}   &  \rb{(\si{\celsius})}  &  \rb{(\si{\celsius})}  &  \rb{(\si{\celsius})}                     \\ \hline \hline
+0          &  24.0                  &  24.0                  &  24.0                                     \\ \hline
+24         &  155.0                 &  24.0                  &  25.6                                     \\ \hline
+50         &  296.3                 &  24.1                  &  32.4                                     \\ \hline
+80         &  460.0                 &  24.6                  &  52.3                                     \\ \hline
+130        &  460.0                 &  27.5                  &  98.7                                     \\ \hline
+240        &  460.0                 &  44.7                  &  186.9                                    \\ \hline
+370        &  460.0                 &  81.5                  &  265.9                                    \\ \hline
+500        &  460.0                 &  130.5                 &  320.6                                    \\ \hline
+740        &  460.0                 &  227.3                 &  379.1                                    \\ \hline
+900        &  460.0                 &  282.8                 &  401.3                                    \\ \hline
+1140       &  460.0                 &  345.8                 &  422.8                                    \\ \hline
+1300       &  460.0                 &  375.9                 &  432.5                                    \\ \hline
+1460       &  460.0                 &  398.4                 &  439.8                                    \\ \hline
+1473       &  460.0                 &  400.0                 &  440.3                                    \\ \hline
+1800       &  460.0                 &  428.6                 &  449.6                                    \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\clearpage
+
+
+\subsection*{Validation}
+
+A summary of the comparisons between predicted and measured cable failure times (the time at which the cable reaches its threshold failure temperature, which corresponds to \SI{200}{\celsius} for thermoplastic cables and \SI{400}{\celsius} for thermoset cables) is shown in Fig.~\ref{Cable Failure Time (THIEF)}.
+
+\begin{figure}[!ht]
+\begin{center}
+\begin{tabular}{l}
+\includegraphics[width=4.0in]{SCRIPT_FIGURES/Scatterplots/Cable_Failure_Time}
+\end{tabular}
+\end{center}
+\caption[Summary of cable failure time predictions]
+{Summary of cable failure time predictions.}
+\label{Cable Failure Time (THIEF)}
+\end{figure}
+
+\clearpage
+
+
+\section{Unprotected Steel Temperature}
+\label{sec:Unprotected_Steel_Temperature}
+
+\subsection*{Description}
+
+The temperature rise, $\Delta T\sb{s}$~(\si{\celsius}), of an unprotected steel member exposed to fire can be predicted using~\cite{SFPE:Milke2}
+\be
+\Delta T\sb{s} = \frac{F}{V} \frac{1}{\rho\sb{s} c\sb{s}} \left[ h\sb{c} (T\sb{f} - T\sb{s}) + \sigma \epsilon (T\sb{f}^4 - T\sb{s}^4) \right] \Delta t
+\label{eq:unprotected_steel}
+\ee
+where $F/V$ is the ratio of heated surface area to volume~(\si{m^{-1}}), $\rho\sb{s}$ is the density of steel~(\si{kg/m^3}), $c\sb{s}$ is the specific heat of steel~(\si{J/(kg.K)}), $h\sb{c}$ is the convective heat transfer coefficient~(\si{W/(m^2.K)}), $T\sb{f}$ is the exposing fire temperature~(\si{K}), $T\sb{s}$ is the steel temperature~(\si{K}), $\sigma$ is the Stefan-Boltzmann constant (\si{W/(m^2.K^4)}), $\epsilon$ is the flame emissivity, and $\Delta t$ is the time step~(\si{s}). Note that the HGL temperature, plume temperature, or other exposing temperature can be used as the fire temperature, $T\sb{f}$.
+
+
+\clearpage
+
+
+\subsection*{Verification}
+
+This example case is based on the 1.1 m Diesel Fire Test from the SP AST Column~\cite{Sjostrom:AST} series. This test involved a large test hall with a steel column located in the middle of a diesel pool fire.
+
+Note: In this verification case, the McCaffrey method (see Section~\ref{sec:McCaffrey}) is used to calculate the exposing fire temperature, $T\sb{f}$.
+
+\begin{table}[!ht]
+\caption[Verification case, unprotected steel temperature]
+{Verification case, unprotected steel temperature.}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{}                                                                \\
+\multicolumn{3}{|c|}{User-Specified Input}                                            \\
+\multicolumn{3}{|c|}{}                                                                \\ \hline
+\multicolumn{2}{|c|}{}                            &  \multicolumn{1}{c|}{}            \\
+\multicolumn{2}{|l|}{\rb{Parameter}}              &  \multicolumn{1}{c|}{\rb{Value}}  \\ \hline \hline
+\multicolumn{2}{|l|}{$F/V$ (1/m)}                 &  \multicolumn{1}{c|}{205}         \\ \hline
+\multicolumn{2}{|l|}{$\rho\sb{s}$ (kg/m$^3$)}     &  \multicolumn{1}{c|}{7833}        \\ \hline
+\multicolumn{2}{|l|}{$c\sb{s}$ (\si{kJ/(kg.K)})}  &  \multicolumn{1}{c|}{0}           \\ \hline
+\multicolumn{2}{|l|}{$\epsilon$}                  &  \multicolumn{1}{c|}{0}           \\ \hline
+\multicolumn{2}{|l|}{$h\sb{c}$ (\si{W/(m^2.K)})}  &  \multicolumn{1}{c|}{25}          \\ \hline \hline
+\multicolumn{2}{|l|}{Correlation for $T\sb{f}$}   &  \multicolumn{1}{c|}{McCaffrey}   \\ \hline \hline
+\multicolumn{2}{|l|}{$\dot Q$ (kW)}               &  \multicolumn{1}{c|}{1434}        \\ \hline
+\multicolumn{2}{|l|}{Height (m)}                  &  \multicolumn{1}{c|}{1}           \\ \hline
+\multicolumn{2}{|l|}{$T_\infty$ (\si{\celsius})}  &  \multicolumn{1}{c|}{20}          \\ \hline
+\multicolumn{2}{c}{}                                                                  \\ \hline
+\multicolumn{3}{|c|}{}                                                                \\
+\multicolumn{3}{|c|}{Calculated Output}                                               \\
+\multicolumn{3}{|c|}{}                                                                \\ \hline
+           &                        &                                                 \\
+           &  \rb{Fire}             &  \rb{Steel}                                     \\
+\rb{Time}  &  \rb{Temperature}      &  \rb{Temperature}                               \\
+\rb{(s)}   &  \rb{(\si{\celsius})}  &  \rb{(\si{\celsius})}                           \\ \hline \hline
+0          &  872.81                &  20.0                                           \\ \hline
+15         &  872.81                &  89.7                                           \\ \hline
+30         &  872.81                &  162.4                                          \\ \hline
+45         &  872.81                &  232.8                                          \\ \hline
+60         &  872.81                &  300.6                                          \\ \hline
+120        &  872.81                &  536.6                                          \\ \hline
+180        &  872.81                &  700.6                                          \\ \hline
+240        &  872.81                &  793.6                                          \\ \hline
+300        &  872.81                &  838.7                                          \\ \hline
+600        &  872.81                &  872.4                                          \\ \hline
+900        &  872.81                &  872.8                                          \\ \hline
+1200       &  872.81                &  872.8                                          \\ \hline
+1500       &  872.81                &  872.8                                          \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\clearpage
+
+
+\section{Protected Steel Temperature}
+\label{sec:Protected_Steel_Temperature}
+
+\subsection*{Description}
+
+The temperature rise, $\Delta T\sb{s}$~(\si{\celsius}), of a protected steel member exposed to fire can be predicted, but we must first determine if the thermal capacity of the insulation layer should be accounted for or if it can be neglected~\cite{SFPE:Milke2}.
+\be
+\Delta T\sb{s} = \left\{ \begin{array}{cl}
+   k\sb{i} \left( \frac{T\sb{f} - T\sb{s}}{c\sb{s} h \frac{W}{D}} \right) \Delta t        &  c\sb{s} \frac{W}{D} > 2 c\sb{i} \rho\sb{i} h \\[0.1in]
+   \frac{k\sb{i}}{h} \left( \frac{T\sb{f} - T\sb{s}}{c\sb{s} \frac{W}{D} + \frac{1}{2} c\sb{i} \rho\sb{i} h} \right) \Delta t  &  c\sb{s} \frac{W}{D} < 2 c\sb{i} \rho\sb{i} h
+   \end{array} \right.
+\label{eq:protected_steel}
+\ee
+where $k\sb{i}$ is the thermal conductivity of the insulation material~(\si{W/(m.K)}), $T\sb{f}$ is the exposing fire temperature~(\si{K}), $T\sb{s}$ is the steel temperature~(\si{K}), $c\sb{s}$ is the specific heat of steel~(\si{J/(kg.K)}), $c\sb{i}$ is the specific heat of the insulation material~(\si{J/(kg.K)}), $h$ is the thickness of the insulation~(\si{m}), $W/D$ is the ratio of the weight of steel section per unit length to the heated perimeter~(\si{kg/m^2}), $\rho\sb{i}$ is the density of the insulating material~(\si{kg/m^3}), and $\Delta t$ is the time step~(\si{s}). Note that the HGL temperature, plume temperature, or other exposing temperature can be used as the fire temperature, $T\sb{f}$.
+
+
+\clearpage
+
+
+\subsection*{Verification}
+
+This example case examines the temperature of a bar structural element in Test 4 of the World Trade Center (WTC)~\cite{NIST_NCSTAR_1-5B} series. This test involved a simple compartment with a heptane spray burner and various structural elements with varying amounts of sprayed fire-resistive materials.
+
+Note: In this verification case, the MQH method (see Section~\ref{sec:MQH}) is used to calculate the exposing fire temperature, $T\sb{f}$.
+
+\begin{table}[!ht]
+\caption[Verification case, protected steel temperature]
+{Verification case, protected steel temperature.}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{}                                                                \\
+\multicolumn{3}{|c|}{User-Specified Input}                                            \\
+\multicolumn{3}{|c|}{}                                                                \\ \hline
+\multicolumn{2}{|c|}{}                            &  \multicolumn{1}{c|}{}            \\
+\multicolumn{2}{|l|}{\rb{Parameter}}              &  \multicolumn{1}{c|}{\rb{Value}}  \\ \hline \hline
+\multicolumn{2}{|l|}{$c\sb{s}$ (\si{kJ/(kg.K)})}  &  \multicolumn{1}{c|}{0.450}       \\ \hline
+\multicolumn{2}{|l|}{$W/D$ (kg/m$^2$)}            &  \multicolumn{1}{c|}{50.1}        \\ \hline
+\multicolumn{2}{|l|}{$k\sb{i}$ (\si{W/(m.K)})}    &  \multicolumn{1}{c|}{0.10}        \\ \hline
+\multicolumn{2}{|l|}{$\rho\sb{i}$ (kg/m$^3$)}     &  \multicolumn{1}{c|}{208}         \\ \hline
+\multicolumn{2}{|l|}{$c\sb{i}$ (\si{kJ/(kg.K)})}  &  \multicolumn{1}{c|}{2.0}         \\ \hline
+\multicolumn{2}{|l|}{$h\sb{i}$ (m)}               &  \multicolumn{1}{c|}{0.0191}      \\ \hline \hline
+\multicolumn{2}{|l|}{Correlation for $T\sb{f}$}   &  \multicolumn{1}{c|}{MQH}         \\ \hline \hline
+\multicolumn{2}{|l|}{$\dot Q$ (kW)}               &  \multicolumn{1}{c|}{3200}        \\ \hline
+\multicolumn{2}{|l|}{$L$ (m)}                     &  \multicolumn{1}{c|}{7.04}        \\ \hline
+\multicolumn{2}{|l|}{$W$ (m)}                     &  \multicolumn{1}{c|}{3.60}        \\ \hline
+\multicolumn{2}{|l|}{$H$ (m)}                     &  \multicolumn{1}{c|}{3.82}        \\ \hline
+\multicolumn{2}{|l|}{$H\sb{o}$ (m)}               &  \multicolumn{1}{c|}{2.82}        \\ \hline
+\multicolumn{2}{|l|}{$W\sb{o}$ (m)}               &  \multicolumn{1}{c|}{2.4}         \\ \hline
+\multicolumn{2}{|l|}{$k$ (\si{kW/(m.K)})}         &  \multicolumn{1}{c|}{0.00012}     \\ \hline
+\multicolumn{2}{|l|}{$\rho$ (kg/m$^3$)}           &  \multicolumn{1}{c|}{737}         \\ \hline
+\multicolumn{2}{|l|}{$c$ (\si{kJ/(kg.K)})}        &  \multicolumn{1}{c|}{1.42}        \\ \hline
+\multicolumn{2}{|l|}{$\delta$ (m)}                &  \multicolumn{1}{c|}{0.0254}      \\ \hline
+\multicolumn{2}{|l|}{$T_\infty$ (\si{\celsius})}  &  \multicolumn{1}{c|}{20}          \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[!ht]
+\caption[Verification case, protected steel temperature (continued)]
+{Verification case, protected steel temperature (continued).}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\multicolumn{3}{|c|}{}                                                                \\
+\multicolumn{3}{|c|}{Calculated Output}                                               \\
+\multicolumn{3}{|c|}{}                                                                \\ \hline
+           &                        &                                                 \\
+           &  \rb{Fire}             &  \rb{Steel}                                     \\
+\rb{Time}  &  \rb{Temperature}      &  \rb{Temperature}                               \\
+\rb{(s)}   &  \rb{(\si{\celsius})}  &  \rb{(\si{\celsius})}                           \\ \hline \hline
+0          &  25.9                  &  20.00                                          \\ \hline
+50         &  378.7                 &  24.14                                          \\ \hline
+100        &  422.6                 &  29.24                                          \\ \hline
+200        &  471.9                 &  40.51                                          \\ \hline
+300        &  503.5                 &  52.54                                          \\ \hline
+400        &  527.3                 &  65.00                                          \\ \hline
+500        &  546.5                 &  77.72                                          \\ \hline
+600        &  562.7                 &  90.60                                          \\ \hline
+700        &  576.9                 &  103.56                                         \\ \hline
+800        &  589.4                 &  116.55                                         \\ \hline
+840        &  594                   &  121.74                                         \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\clearpage
+
+
+\subsection*{Validation}
+
+For the unprotected and protected steel cases, a summary of the comparisons between peak predicted and measured target temperatures is shown in Fig.~\ref{Target Temperature}.
+
+\begin{figure}[!ht]
+\begin{center}
+\begin{tabular}{l}
+\includegraphics[width=4.0in]{SCRIPT_FIGURES/Scatterplots/Target_Temperature}
+\end{tabular}
+\end{center}
+\caption[Summary of target temperature predictions]
+{Summary of target temperature predictions.}
+\label{Target Temperature}
+\end{figure}
+
