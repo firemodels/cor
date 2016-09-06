@@ -26,21 +26,23 @@
 close all
 clear all
 
-addpath 'scripts'
+script_dir = [pwd, '/../../fds/Utilities/Matlab/scripts/'];
+addpath(script_dir)
 
 % Dataplot and scatplot options
 
 Dataplot_Inputs_File = [pwd, '/Correlation_validation_dataplot_inputs.csv'];
-Working_Dir = [pwd, '/../../Validation/'];
-Manuals_Dir = [pwd, '/../../Manuals/'];
+EXP_Dir = [pwd, '/../../exp/'];
+OUT_Dir = [pwd, '/../Validation/'];
+Manuals_Dir = [pwd, '/../Manuals/'];
 Scatterplot_Inputs_File = [pwd, '/Correlation_validation_scatterplot_inputs.csv'];
 
 % Statistics output options
 
 Stats_Output = 'Validation';
 Output_File = [pwd, '/Correlation_validation_scatterplot_output.csv'];
-Statistics_Tex_Output = [pwd, '/../../Manuals/Correlation_Guide/SCRIPT_FIGURES/Scatterplots/validation_statistics.tex'];
-Histogram_Tex_Output = [pwd, '/../../Manuals/Correlation_Guide/SCRIPT_FIGURES/Scatterplots/validation_histograms.tex'];
+Statistics_Tex_Output = [pwd, '/../Manuals/SCRIPT_FIGURES/Scatterplots/validation_statistics.tex'];
+Histogram_Tex_Output = [pwd, '/../Manuals/SCRIPT_FIGURES/Scatterplots/validation_histograms.tex'];
 
 % Override the plot style options with NRC 1824 plot options
 
@@ -49,7 +51,7 @@ Append_To_Scatterplot_Title = '';
 
 % Run dataplot and scatplot scripts
 
-[saved_data,drange] = dataplot(Dataplot_Inputs_File, Working_Dir, Manuals_Dir);
+[saved_data,drange] = dataplot(Dataplot_Inputs_File, EXP_Dir, OUT_Dir, Manuals_Dir);
 scatplot(saved_data, drange, ...
          'Manuals_Dir', Manuals_Dir, ...
          'Scatterplot_Inputs_File', Scatterplot_Inputs_File, ...
