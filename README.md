@@ -1,14 +1,11 @@
-# fds-smv
-Fire Dynamics Simulator and Smokeview
+# cor
+Empirical Fire Correlations
 
-*Continuous Integration. Continuous Improvement.*
+This repository contains the materials needed to compile NIST Special Publication 1169, _Verification and Validation of Commonly Used Empirical Correlations for Fire Scenarios_. To make use of these materials, you need a Fortran compiler, Matlab, LaTeX, and a linux bash shell. The linux and/or bash shell is not absolutely necessary, but all of the scripts in this repository are bash. It is also assumed that you have the Git repository `firemodels/fds` cloned in the same directory as `firemodels/cor`.
 
-Fire Dynamics Simulator (FDS) is a large-eddy simulation (LES) code for low-speed flows, with an emphasis on smoke and heat transport from fires.
+The process to compile the document is basically as follows:
+  * Run the bash shell script `Validation/Run_Correlation_Cases.sh`. This script compiles the Fortran program `Source/correlation.f90` and then estimates the various measured quantities from the experiments listed in the `Validation` sub-directories.
+  * Run the bash shell script `Utilities/Run_Correlation_Matlab_Validation.sh` which runs the Matlab script `Utilities/Correlation_validation_script.m`
+  * Compile the LaTeX document `Manuals/Correlation_Guide.tex` by running the bash shell script `Manuals/make_guide.sh`
 
-Smokeview (SMV) is a visualization program used to display the output of FDS and [CFAST](https://github.com/firemodels/cfast) simulations.
-
-For more information, including a link to our discussion forum, please visit the [FDS-SMV website](https://pages.nist.gov/fds-smv/).
-
-Here is a link to our [Firebot Build Status](https://pages.nist.gov/fds-smv/firebot_status.html).
-
-Pull requests welcome!
+There is single bash shell script called `Utilities/correlation_bot.sh` that automatically runs these various scripts. However, you should look at the various scripts listed here and make the necessary adjustments.
