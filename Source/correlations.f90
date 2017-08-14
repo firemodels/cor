@@ -398,7 +398,7 @@ DO I=1,20
 
       ! Solid flame radiation model
       S = 2*X(I)/D
-      IF (Z(I)>0) THEN
+      IF (Z(K)>0) THEN
          H1 = 2*Z(K)/D
          H2 = 2*(L_F-Z(K))/D
          A1 = (H1**2 + S**2 + 1 ) / (2 * S)
