@@ -386,7 +386,7 @@ DO I=1,20
 
       ! Point source radiation model
       R = SQRT(X(I)**2+(Z(K)-L_F/3.)**2)
-      SELECT CASE(ABS(IOR(K)))
+!      SELECT CASE(ABS(IOR(K)))
       ! Select cos term based on orientation of heat flux gauge
 !         CASE(1)
 !            Q_RAD(K) = (X(I)/R)*RADIATIVE_FRACTION*Q/(4.*PI*R**2)
