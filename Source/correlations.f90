@@ -388,14 +388,16 @@ DO I=1,20
       R = SQRT(X(I)**2+(Z(K)-L_F/3.)**2)
       SELECT CASE(ABS(IOR(K)))
       ! Select cos term based on orientation of heat flux gauge
-         CASE(1)
-            Q_RAD(K) = (X(I)/R)*RADIATIVE_FRACTION*Q/(4.*PI*R**2)
-         CASE(2)
-            Q_RAD(K) = (X(I)/R)*RADIATIVE_FRACTION*Q/(4.*PI*R**2)
-         CASE(3)
-            Q_RAD(K) = (Z(K)/R)*RADIATIVE_FRACTION*Q/(4.*PI*R**2)
-      END SELECT
+!         CASE(1)
+!            Q_RAD(K) = (X(I)/R)*RADIATIVE_FRACTION*Q/(4.*PI*R**2)
+!         CASE(2)
+!            Q_RAD(K) = (X(I)/R)*RADIATIVE_FRACTION*Q/(4.*PI*R**2)
+!         CASE(3)
+!            Q_RAD(K) = (Z(K)/R)*RADIATIVE_FRACTION*Q/(4.*PI*R**2)
+!      END SELECT
 
+       Q_RAD(K) = RADIATIVE_FRACTION*Q/(4.*PI*R**2)
+       
       ! Solid flame radiation model
       S = 2*X(I)/D
       IF (Z(K)>0) THEN
