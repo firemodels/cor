@@ -2,7 +2,7 @@ PROGRAM correlations
 
 IMPLICIT NONE
 
-CHARACTER(60) :: INPUT_FILE,OUTPUT_FILE
+CHARACTER(60) :: INPUT_FILE,OUTPUT_FILE,FN_GIT
 REAL :: ACTIVATION_TEMPERATURE,A_C,ALPHA,AREA,A_T,A_V,C_I,CONDUIT_DIAMETER,CONDUIT_THICKNESS,CUTOFF_TIME,C_PL,C_CJ, &
         C_S,C_STEEL,D,DELTA,DELTA_T_C,DT,EPSILON,FUEL_HEIGHT,F_V,H,HEAT_LOSS_FRACTION,H_C,H_I,H_K,H_V,JACKET_THICKNESS, &
         K_I,K_S,L,LOCATION_FACTOR,L_F,MASS_PER_LENGTH,M_DOT,P,Q,Q_STAR,Q_STEP,R,RADIATIVE_FRACTION,RHO_A, &
@@ -41,7 +41,11 @@ OPEN(10,FILE=TRIM(INPUT_FILE),FORM='FORMATTED',STATUS='OLD')
 
 DO
    READ(10,NML=FPA,END=100,ERR=99,IOSTAT=IOS)
+   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
    CALL COMPUTE_FPA
+   OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
+   WRITE(12,'(A)') TRIM(GITHASH_PP)
+   CLOSE(12)
 ENDDO
 100 WRITE(0,*) 'Completed FPA.'
 REWIND(10)
@@ -51,6 +55,11 @@ REWIND(10)
 DO
    READ(10,NML=DB,END=101,ERR=99,IOSTAT=IOS)
    CALL COMPUTE_DB
+   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
+   CALL COMPUTE_FPA
+   OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
+   WRITE(12,'(A)') TRIM(GITHASH_PP)
+   CLOSE(12)
 ENDDO
 101 WRITE(0,*) 'Completed Deal and Beyler.'
 REWIND(10)
@@ -60,6 +69,11 @@ REWIND(10)
 DO
    READ(10,NML=MQH,END=102,ERR=99,IOSTAT=IOS)
    CALL COMPUTE_MQH
+   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
+   CALL COMPUTE_FPA
+   OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
+   WRITE(12,'(A)') TRIM(GITHASH_PP)
+   CLOSE(12)
 ENDDO
 102 WRITE(0,*) 'Completed MQH.'
 REWIND(10)
@@ -69,6 +83,11 @@ REWIND(10)
 DO
    READ(10,NML=BEYLER,END=103,ERR=99,IOSTAT=IOS)
    CALL COMPUTE_BEYLER
+   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
+   CALL COMPUTE_FPA
+   OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
+   WRITE(12,'(A)') TRIM(GITHASH_PP)
+   CLOSE(12)
 ENDDO
 103 WRITE(0,*) 'Completed Beyler.'
 REWIND(10)
@@ -79,6 +98,11 @@ DO
    X=-1. ; Z=-1.
    READ(10,NML=RAD,END=104,ERR=99,IOSTAT=IOS)
    CALL COMPUTE_RADIATION
+   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
+   CALL COMPUTE_FPA
+   OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
+   WRITE(12,'(A)') TRIM(GITHASH_PP)
+   CLOSE(12)
 ENDDO
 104 WRITE(0,*) 'Completed Radiation.'
 REWIND(10)
@@ -89,6 +113,11 @@ DO
    CONDUIT_DIAMETER=0. ; CONDUIT_THICKNESS=0. ; T_RAMP=0.
    READ(10,NML=THIEF,END=105,ERR=99,IOSTAT=IOS)
    CALL COMPUTE_THIEF
+   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
+   CALL COMPUTE_FPA
+   OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
+   WRITE(12,'(A)') TRIM(GITHASH_PP)
+   CLOSE(12)
 ENDDO
 105 WRITE(0,*) 'Completed THIEF.'
 REWIND(10)
@@ -99,6 +128,11 @@ DO
    H_VALUES=-1. ; R_VALUES=-1.
    READ(10,NML=ALPERT,END=106,ERR=99,IOSTAT=IOS)
    CALL COMPUTE_ALPERT
+   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
+   CALL COMPUTE_FPA
+   OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
+   WRITE(12,'(A)') TRIM(GITHASH_PP)
+   CLOSE(12)
 ENDDO
 106 WRITE(0,*) 'Completed Ceiling Jet Temperatures (Alpert).'
 REWIND(10)
@@ -108,6 +142,11 @@ REWIND(10)
 DO
    READ(10,NML=SPRINKLER,END=107,ERR=99,IOSTAT=IOS)
    CALL COMPUTE_SPRINKLER
+   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
+   CALL COMPUTE_FPA
+   OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
+   WRITE(12,'(A)') TRIM(GITHASH_PP)
+   CLOSE(12)
 ENDDO
 107 WRITE(0,*) 'Completed Sprinkler Activation (Alpert).'
 REWIND(10)
@@ -118,6 +157,11 @@ DO
    TIME_RAMP=-1 ; Q_RAMP=-1 ; Z=-1.
    READ(10,NML=HESKESTAD,END=108,ERR=99,IOSTAT=IOS)
    CALL COMPUTE_HESKESTAD
+   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
+   CALL COMPUTE_FPA
+   OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
+   WRITE(12,'(A)') TRIM(GITHASH_PP)
+   CLOSE(12)
 ENDDO
 108 WRITE(0,*) 'Completed Heskestad Plume.'
 REWIND(10)
@@ -128,6 +172,11 @@ DO
    TIME_RAMP=-1 ; Q_RAMP=-1 ; Z=-1.
    READ(10,NML=MCCAFFREY,END=109,ERR=99,IOSTAT=IOS)
    CALL COMPUTE_MCCAFFREY
+   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
+   CALL COMPUTE_FPA
+   OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
+   WRITE(12,'(A)') TRIM(GITHASH_PP)
+   CLOSE(12)
 ENDDO
 109 WRITE(0,*) 'Completed McCaffrey Plume.'
 REWIND(10)
@@ -187,9 +236,9 @@ WRITE(11,'(A)') 'Time,Temp'
 
 DT = 0.05
 T  = -60.
-T_CLOCK = T 
+T_CLOCK = T
 
-DO 
+DO
 
    T = T + DT
 
@@ -397,7 +446,7 @@ DO I=1,20
 !      END SELECT
 
        Q_RAD(K) = RADIATIVE_FRACTION*Q/(4.*PI*R**2)
-       
+
       ! Solid flame radiation model
       S = 2*X(I)/D
       IF (Z(K)>0) THEN
@@ -431,7 +480,7 @@ DO I=1,20
          WRITE(11,FMT) 'x',(TRIM(Z_LABEL(K))//'_PS_RAD',K=1,N_Z),(TRIM(Z_LABEL(K))//'_SF_RAD',K=1,N_Z)
       ENDIF
    ENDIF
-   
+
    IF (.NOT. TIME_OUTPUT) THEN
       WRITE(FMT,'(A,I2.1,5A)') "(",2*N_Z,"(","F7.2",",','),","F7.2",")"
       WRITE(11,FMT) X(I),(Q_RAD(K),K=1,N_Z),(Q_RAD_SOLID(K),K=1,N_Z)
@@ -457,7 +506,7 @@ logical :: conduit
 
 ! Convert inputs to m,K,kg,J,W, etc.
 
-radius = D/2000.                
+radius = D/2000.
 jacket_thickness = jacket_thickness/1000.
 conduit_thickness = conduit_thickness/1000.
 conduit_radius = conduit_diameter/2000. - conduit_thickness
@@ -520,7 +569,7 @@ T_WRITE = 0.
 
 ! March forward in time
 
-time_loop: do 
+time_loop: do
 
    t = t + dt  ! Advance the time
 
@@ -546,7 +595,7 @@ time_loop: do
 
    if (conduit) then
       view_factor = 1./(1./eps + (radius/conduit_radius)*(1.-eps_steel)/eps_steel)
-      flux_in  = eps_steel*sigma*(tmp_gas**4-tmp_conduit**4) + h*(tmp_gas-tmp_conduit) 
+      flux_in  = eps_steel*sigma*(tmp_gas**4-tmp_conduit**4) + h*(tmp_gas-tmp_conduit)
       flux_out = view_factor*(radius/conduit_radius)*sigma*(tmp_conduit**4-tmp_s**4)  + h*(tmp_conduit-tmp_s)
       tmp_conduit = tmp_conduit + dt*(flux_in-flux_out)/c_rho_delta
       tmp_exp = tmp_conduit
@@ -557,7 +606,7 @@ time_loop: do
 
    ! Get the heat flux to the cable surface
 
-   flux = view_factor*sigma*(tmp_exp**4-tmp_s**4) + h*(tmp_exp-tmp_s)  
+   flux = view_factor*sigma*(tmp_exp**4-tmp_s**4) + h*(tmp_exp-tmp_s)
 
    ! Set the ghost cell value of the cable temperature just off the surface
 
@@ -783,7 +832,7 @@ DO I=1,9999
    N_T = N_T + 1
 
    T = TIME_RAMP(I)
-   
+
    N_Z = 0
    DO J=1,20
       IF (Z(J)<0) EXIT
