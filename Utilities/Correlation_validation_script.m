@@ -36,6 +36,7 @@ EXP_Dir = [pwd, '/../../exp/'];
 OUT_Dir = [pwd, '/../Validation/'];
 Manuals_Dir = [pwd, '/../Manuals/'];
 Scatterplot_Inputs_File = [pwd, '/Correlation_validation_scatterplot_inputs.csv'];
+Scatterplot_Dir = [pwd, '/../../Manuals/SCRIPT_FIGURES/ScatterPlots/'];
 
 % Statistics output options
 
@@ -44,22 +45,15 @@ Output_File = [pwd, '/Correlation_validation_scatterplot_output.csv'];
 Statistics_Tex_Output = [pwd, '/../Manuals/SCRIPT_FIGURES/Scatterplots/validation_statistics.tex'];
 Histogram_Tex_Output = [pwd, '/../Manuals/SCRIPT_FIGURES/Scatterplots/validation_histograms.tex'];
 
-% Override the plot style options with NRC 1824 plot options
-
-NRC_Options = false;
-Append_To_Scatterplot_Title = '';
-
 % Run dataplot and scatplot scripts
-
 [saved_data,drange] = dataplot(Dataplot_Inputs_File, EXP_Dir, OUT_Dir, Manuals_Dir);
 scatplot(saved_data, drange, ...
          'Manuals_Dir', Manuals_Dir, ...
          'Scatterplot_Inputs_File', Scatterplot_Inputs_File, ...
          'Stats_Output', Stats_Output, ...
+         'Scatterplot_Dir', Scatterplot_Dir, ...
          'Output_File', Output_File, ...
          'Statistics_Tex_Output', Statistics_Tex_Output, ...
-         'Histogram_Tex_Output', Histogram_Tex_Output, ...
-         'NRC_Options', NRC_Options, ...
-         'Append_To_Scatterplot_Title', Append_To_Scatterplot_Title)
+         'Histogram_Tex_Output', Histogram_Tex_Output)
  
 display('validation scripts completed successfully!')

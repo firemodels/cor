@@ -1,4 +1,4 @@
-PROGRAM correlations
+PROGRAM CORRELATIONS
 
 IMPLICIT NONE
 
@@ -6,7 +6,7 @@ CHARACTER(60) :: INPUT_FILE,OUTPUT_FILE,FN_GIT
 REAL :: ACTIVATION_TEMPERATURE,A_C,ALPHA,AREA,A_T,A_V,C_I,CONDUIT_DIAMETER,CONDUIT_THICKNESS,CUTOFF_TIME,C_PL,C_CJ, &
         C_S,C_STEEL,D,DELTA,DELTA_T_C,DT,EPSILON,FUEL_HEIGHT,F_V,H,HEAT_LOSS_FRACTION,H_C,H_I,H_K,H_V,JACKET_THICKNESS, &
         K_I,K_S,L,LOCATION_FACTOR,L_F,MASS_PER_LENGTH,M_DOT,P,Q,Q_STAR,Q_STEP,R,RADIATIVE_FRACTION,RHO_A, &
-        RHO_I,RHO_S,RHO_STEEL,RTI,T,t_activation,T_END,T_P,TMP_A,TMP_G,T_CLOCK,U_JET,V,V_ENT, &
+        RHO_I,RHO_S,RHO_STEEL,RTI,T,T_ACTIVATION,T_END,T_P,TMP_A,TMP_G,T_CLOCK,U_JET,V,V_ENT, &
         V_EXP,V_UL,V_DOT,W,W_D,W_V,Z_YT,Z_ASET
 REAL, DIMENSION(20) :: X,Z,T_PLUME,R_VALUES,H_VALUES
 REAL, DIMENSION(9999) :: TIME_RAMP,Q_RAMP
@@ -33,158 +33,159 @@ NAMELIST /MCCAFFREY/ TIME_RAMP,Q_RAMP,Z,TMP_A,OUTPUT_FILE,Z_LABEL,PROFILE,STEEL_
 
 CALL GET_COMMAND_ARGUMENT(1,INPUT_FILE)
 
-WRITE(0,FMT='(/A,A)') 'Processing ', INPUT_FILE
+WRITE(0,FMT='(/A,A)') 'PROCESSING ', INPUT_FILE
 
 OPEN(10,FILE=TRIM(INPUT_FILE),FORM='FORMATTED',STATUS='OLD')
 
-! Process FPA lines
+! PROCESS FPA LINES
 
 DO
    READ(10,NML=FPA,END=100,ERR=99,IOSTAT=IOS)
    FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
+   OUTPUT_FILE = TRIM(OUTPUT_FILE)//'.csv'
    CALL COMPUTE_FPA
    OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
    WRITE(12,'(A)') TRIM(GITHASH_PP)
    CLOSE(12)
 ENDDO
-100 WRITE(0,*) 'Completed FPA.'
+100 WRITE(0,*) 'COMPLETED FPA.'
 REWIND(10)
 
-! Process DB (Deal and Beyler)
+! PROCESS DB (DEAL AND BEYLER)
 
 DO
    READ(10,NML=DB,END=101,ERR=99,IOSTAT=IOS)
+   FN_GIT = TRIM(OUTPUT_FILE)//'_GIT.TXT'
+   OUTPUT_FILE = TRIM(OUTPUT_FILE)//'.csv'
    CALL COMPUTE_DB
-   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
-   CALL COMPUTE_FPA
    OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
    WRITE(12,'(A)') TRIM(GITHASH_PP)
    CLOSE(12)
 ENDDO
-101 WRITE(0,*) 'Completed Deal and Beyler.'
+101 WRITE(0,*) 'COMPLETED DEAL AND BEYLER.'
 REWIND(10)
 
-! Process MQH lines
+! PROCESS MQH LINES
 
 DO
    READ(10,NML=MQH,END=102,ERR=99,IOSTAT=IOS)
+   FN_GIT = TRIM(OUTPUT_FILE)//'_GIT.TXT'
+   OUTPUT_FILE = TRIM(OUTPUT_FILE)//'.csv'
    CALL COMPUTE_MQH
-   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
-   CALL COMPUTE_FPA
    OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
    WRITE(12,'(A)') TRIM(GITHASH_PP)
    CLOSE(12)
 ENDDO
-102 WRITE(0,*) 'Completed MQH.'
+102 WRITE(0,*) 'COMPLETED MQH.'
 REWIND(10)
 
-! Process Beyler lines
+! PROCESS BEYLER LINES
 
 DO
    READ(10,NML=BEYLER,END=103,ERR=99,IOSTAT=IOS)
+   FN_GIT = TRIM(OUTPUT_FILE)//'_GIT.TXT'
+   OUTPUT_FILE = TRIM(OUTPUT_FILE)//'.csv'
    CALL COMPUTE_BEYLER
-   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
-   CALL COMPUTE_FPA
    OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
    WRITE(12,'(A)') TRIM(GITHASH_PP)
    CLOSE(12)
 ENDDO
-103 WRITE(0,*) 'Completed Beyler.'
+103 WRITE(0,*) 'COMPLETED BEYLER.'
 REWIND(10)
 
-! Process Radiation lines
+! PROCESS RADIATION LINES
 
 DO
    X=-1. ; Z=-1.
    READ(10,NML=RAD,END=104,ERR=99,IOSTAT=IOS)
+   FN_GIT = TRIM(OUTPUT_FILE)//'_GIT.TXT'
+   OUTPUT_FILE = TRIM(OUTPUT_FILE)//'.csv'
    CALL COMPUTE_RADIATION
-   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
-   CALL COMPUTE_FPA
    OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
    WRITE(12,'(A)') TRIM(GITHASH_PP)
    CLOSE(12)
 ENDDO
-104 WRITE(0,*) 'Completed Radiation.'
+104 WRITE(0,*) 'COMPLETED RADIATION.'
 REWIND(10)
 
-! Process THIEF lines
+! PROCESS THIEF LINES
 
 DO
    CONDUIT_DIAMETER=0. ; CONDUIT_THICKNESS=0. ; T_RAMP=0.
    READ(10,NML=THIEF,END=105,ERR=99,IOSTAT=IOS)
+   OUTPUT_FILE = TRIM(OUTPUT_FILE)//'.csv'
+   FN_GIT = TRIM(OUTPUT_FILE)//'_GIT.TXT'
    CALL COMPUTE_THIEF
-   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
-   CALL COMPUTE_FPA
    OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
    WRITE(12,'(A)') TRIM(GITHASH_PP)
    CLOSE(12)
 ENDDO
-105 WRITE(0,*) 'Completed THIEF.'
+105 WRITE(0,*) 'COMPLETED THIEF.'
 REWIND(10)
 
-! Process ALPERT (Ceiling Jet Temperature) lines
+! PROCESS ALPERT (CEILING JET TEMPERATURE) LINES
 
 DO
    H_VALUES=-1. ; R_VALUES=-1.
    READ(10,NML=ALPERT,END=106,ERR=99,IOSTAT=IOS)
+   FN_GIT = TRIM(OUTPUT_FILE)//'_GIT.TXT'
+   OUTPUT_FILE = TRIM(OUTPUT_FILE)//'.csv'
    CALL COMPUTE_ALPERT
-   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
-   CALL COMPUTE_FPA
    OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
    WRITE(12,'(A)') TRIM(GITHASH_PP)
    CLOSE(12)
 ENDDO
-106 WRITE(0,*) 'Completed Ceiling Jet Temperatures (Alpert).'
+106 WRITE(0,*) 'COMPLETED CEILING JET TEMPERATURES (ALPERT).'
 REWIND(10)
 
-! Process SPRINKLER (Sprinkler Activation) lines
+! PROCESS SPRINKLER (SPRINKLER ACTIVATION) LINES
 
 DO
    READ(10,NML=SPRINKLER,END=107,ERR=99,IOSTAT=IOS)
+   FN_GIT = TRIM(OUTPUT_FILE)//'_GIT.TXT'
+   OUTPUT_FILE = TRIM(OUTPUT_FILE)//'.csv'
    CALL COMPUTE_SPRINKLER
-   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
-   CALL COMPUTE_FPA
    OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
    WRITE(12,'(A)') TRIM(GITHASH_PP)
    CLOSE(12)
 ENDDO
-107 WRITE(0,*) 'Completed Sprinkler Activation (Alpert).'
+107 WRITE(0,*) 'COMPLETED SPRINKLER ACTIVATION (ALPERT).'
 REWIND(10)
 
-! Process HESKESTAD (Plume Centerline Temperature) lines
+! PROCESS HESKESTAD (PLUME CENTERLINE TEMPERATURE) LINES
 
 DO
    TIME_RAMP=-1 ; Q_RAMP=-1 ; Z=-1.
    READ(10,NML=HESKESTAD,END=108,ERR=99,IOSTAT=IOS)
+   FN_GIT = TRIM(OUTPUT_FILE)//'_GIT.TXT'
+   OUTPUT_FILE = TRIM(OUTPUT_FILE)//'.csv'
    CALL COMPUTE_HESKESTAD
-   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
-   CALL COMPUTE_FPA
    OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
    WRITE(12,'(A)') TRIM(GITHASH_PP)
    CLOSE(12)
 ENDDO
-108 WRITE(0,*) 'Completed Heskestad Plume.'
+108 WRITE(0,*) 'COMPLETED HESKESTAD PLUME.'
 REWIND(10)
 
-! Process MCCAFFREY (Plume Centerline Temperature) lines
+! PROCESS MCCAFFREY (PLUME CENTERLINE TEMPERATURE) LINES
 
 DO
    TIME_RAMP=-1 ; Q_RAMP=-1 ; Z=-1.
    READ(10,NML=MCCAFFREY,END=109,ERR=99,IOSTAT=IOS)
+   FN_GIT = TRIM(OUTPUT_FILE)//'_GIT.TXT'
+   OUTPUT_FILE = TRIM(OUTPUT_FILE)//'.csv'
    CALL COMPUTE_MCCAFFREY
-   FN_GIT = TRIM(OUTPUT_FILE)//'_git.txt'
-   CALL COMPUTE_FPA
    OPEN(12,FILE=FN_GIT,FORM='FORMATTED',STATUS='REPLACE')
    WRITE(12,'(A)') TRIM(GITHASH_PP)
    CLOSE(12)
 ENDDO
-109 WRITE(0,*) 'Completed McCaffrey Plume.'
+109 WRITE(0,*) 'COMPLETED MCCAFFREY PLUME.'
 REWIND(10)
 
-! Error message
+! ERROR MESSAGE
 
 99 IF (IOS>0) THEN
-      WRITE(0,*) 'ERROR: Problem with input line.'
+      WRITE(0,*) 'ERROR: PROBLEM WITH INPUT LINE.'
       STOP
    ENDIF
 
@@ -196,7 +197,7 @@ OPEN(11,FILE=TRIM(OUTPUT_FILE),FORM='FORMATTED',STATUS='REPLACE')
 
 T_P = (RHO_S*C_S/K_S) * (DELTA/2.)**2
 A_T = 2.*L*W + 2.*L*H + 2.*W*H
-TMP_A = TMP_A + 273.
+TMP_A = TMP_A + 273.15
 
 WRITE(11,'(A)') 'Time,Temp'
 
@@ -212,7 +213,7 @@ DO I=0,50
 
    TMP_G = TMP_A*(1. + 0.63*(Q/(M_DOT*C_P*TMP_A))**0.72 * (H_K*A_T/(M_DOT*C_P))**-0.36)
 
-   WRITE(11,'(F6.1,A1,F6.1)') T,',',TMP_G-273.
+   WRITE(11,'(F6.1,A1,F6.1)') T,',',TMP_G-273.15
 
 ENDDO
 
@@ -229,7 +230,7 @@ OPEN(11,FILE=TRIM(OUTPUT_FILE),FORM='FORMATTED',STATUS='REPLACE')
 
 A_T = 2.*L*W + 2.*L*H + 2.*W*H
 V = L*W*H
-TMP_A = TMP_A + 273.
+TMP_A = TMP_A + 273.15
 RHO_A = 353./(TMP_A)
 
 WRITE(11,'(A)') 'Time,Temp'
@@ -251,7 +252,7 @@ DO
    ENDIF
 
    IF (T>T_CLOCK) THEN
-      WRITE(11,'(F6.1,A1,F6.1)') T,',',TMP_G-273.
+      WRITE(11,'(F6.1,A1,F6.1)') T,',',TMP_G-273.15
       T_CLOCK = T_CLOCK + T_END/500.
    ENDIF
 
@@ -270,14 +271,14 @@ REAL :: RHO_G,Z,SIGMA
 REAL :: T_STEEL(9999),DELTA_T
 INTEGER :: J
 
-SIGMA = 5.67e-11
+SIGMA = 5.67E-11
 
 OPEN(11,FILE=TRIM(OUTPUT_FILE),FORM='FORMATTED',STATUS='REPLACE')
 
 T_P = (RHO_S*C_S/K_S) * (DELTA/2.)**2
 A_V = H_V*W_V
 A_T = 2.*L*W + 2.*L*H + 2.*W*H - A_V
-TMP_A = TMP_A + 273.
+TMP_A = TMP_A + 273.15
 
 IF (PROFILE) THEN
    WRITE(11,'(A)') 'Height,Temp'
@@ -302,7 +303,7 @@ DO I=0,50
    RHO_G = 353./TMP_G
    Z = MAX( H_V , H*(1. + 2.*(0.05/RHO_G)*Q**0.333*T*H**0.667/(3.*L*W) )**-1.5 )
 
-   ! Compute steel temperatures
+   ! COMPUTE STEEL TEMPERATURES
 
    IF (STEEL_UNPROTECTED) THEN
       DELTA_T = 1
@@ -327,20 +328,20 @@ DO I=0,50
    ENDIF
 
    IF ((STEEL_UNPROTECTED == .TRUE.) .OR. (STEEL_PROTECTED == .TRUE.)) THEN
-      IF ((.NOT.PROFILE) .AND. (I==0)) WRITE(11,'(F6.1,A1,F6.1,A1,F6.2,A1,F7.2)') T,',',TMP_G-273.,',',Z,',',T_STEEL(1)-273
-      IF ((.NOT.PROFILE) .AND. (I/=0)) WRITE(11,'(F6.1,A1,F6.1,A1,F6.2,A1,F7.2)') T,',',TMP_G-273.,',',Z,',',T_STEEL(T+1)-273
+      IF ((.NOT.PROFILE) .AND. (I==0)) WRITE(11,'(F6.1,A1,F6.1,A1,F6.2,A1,F7.2)') T,',',TMP_G-273.15,',',Z,',',T_STEEL(1)-273.15
+      IF ((.NOT.PROFILE) .AND. (I/=0)) WRITE(11,'(F6.1,A1,F6.1,A1,F6.2,A1,F7.2)') T,',',TMP_G-273.15,',',Z,',',T_STEEL(T+1)-273.15
    ELSE
-      IF ((.NOT.PROFILE) .AND. (I==0)) WRITE(11,'(F6.1,A1,F6.1,A1,F6.2)') T,',',TMP_G-273.,',',Z
-      IF ((.NOT.PROFILE) .AND. (I/=0)) WRITE(11,'(F6.1,A1,F6.1,A1,F6.2)') T,',',TMP_G-273.,',',Z
+      IF ((.NOT.PROFILE) .AND. (I==0)) WRITE(11,'(F6.1,A1,F6.1,A1,F6.2)') T,',',TMP_G-273.15,',',Z
+      IF ((.NOT.PROFILE) .AND. (I/=0)) WRITE(11,'(F6.1,A1,F6.1,A1,F6.2)') T,',',TMP_G-273.15,',',Z
    ENDIF
 
 ENDDO
 
 IF (PROFILE) THEN
-   WRITE(11,'(F6.1,A1,F6.1,A1,F6.2)') 0.,',',TMP_A-273.
-   WRITE(11,'(F6.1,A1,F6.1,A1,F6.2)') Z ,',',TMP_A-273.
-   WRITE(11,'(F6.1,A1,F6.1,A1,F6.2)') Z ,',',TMP_G-273.
-   WRITE(11,'(F6.1,A1,F6.1,A1,F6.2)') H ,',',TMP_G-273.
+   WRITE(11,'(F6.1,A1,F6.1,A1,F6.2)') 0.,',',TMP_A-273.15
+   WRITE(11,'(F6.1,A1,F6.1,A1,F6.2)') Z ,',',TMP_A-273.15
+   WRITE(11,'(F6.1,A1,F6.1,A1,F6.2)') Z ,',',TMP_G-273.15
+   WRITE(11,'(F6.1,A1,F6.1,A1,F6.2)') H ,',',TMP_G-273.15
 ENDIF
 
 CLOSE(11)
@@ -360,7 +361,7 @@ INTEGER :: J
 OPEN(11,FILE=TRIM(OUTPUT_FILE),FORM='FORMATTED',STATUS='REPLACE')
 
 A_T = 2.*L*W + 2.*L*H + 2.*W*H
-TMP_A = TMP_A + 273.
+TMP_A = TMP_A + 273.15
 RHO_A = 353./(TMP_A)
 M = L*W*H*RHO_A
 
@@ -375,7 +376,7 @@ DO I=0,50
 
    TMP_G = TMP_A + (2.*K2/K1**2)*(K1*SQRT(T) - 1. + EXP(-K1*SQRT(T)))
 
-   ! Calculate HGL height using ASET correlation
+   ! CALCULATE HGL HEIGHT USING ASET CORRELATION
    Z_ASET = H
    DELTA_T = 1.
 
@@ -389,14 +390,14 @@ DO I=0,50
       ENDIF
    ENDDO
 
-   ! Calculate HGL height using Yamana and Tanaka correlation (1985)
+   ! CALCULATE HGL HEIGHT USING YAMANA AND TANAKA CORRELATION (1985)
    K = 0.076/(353./TMP_G)
    Z_YT = (2*K*Q**(1./3.)*T/(3*L*W) + (1/H**(2./3.)))**(-3./2.)
 
    IF (I==0) THEN
-      WRITE(11,'(F6.1,A1,F6.1,A1,F6.2,A1,F6.2)') T,',',TMP_G-273.,',',Z_YT,',',Z_ASET(1)
+      WRITE(11,'(F6.1,A1,F6.1,A1,F6.2,A1,F6.2)') T,',',TMP_G-273.15,',',Z_YT,',',Z_ASET(1)
    ELSE
-      WRITE(11,'(F6.1,A1,F6.1,A1,F6.2,A1,F6.2)') T,',',TMP_G-273.,',',Z_YT,',',Z_ASET(T+1)
+      WRITE(11,'(F6.1,A1,F6.1,A1,F6.2,A1,F6.2)') T,',',TMP_G-273.15,',',Z_YT,',',Z_ASET(T+1)
    ENDIF
 
 ENDDO
@@ -406,7 +407,7 @@ CLOSE(11)
 END SUBROUTINE COMPUTE_BEYLER
 
 
-! Combined point source radiation model and solid flame model
+! COMBINED POINT SOURCE RADIATION MODEL AND SOLID FLAME MODEL
 SUBROUTINE COMPUTE_RADIATION
 
 REAL :: R,Q_RAD(20),Q_RAD_SOLID(20),E,S,H1,H2,A1,A2,F_12_V1,F_12_V2,F_12_H,F_12_V,F_12,A,B
@@ -415,13 +416,13 @@ CHARACTER(30) :: FMT
 
 OPEN(11,FILE=TRIM(OUTPUT_FILE),FORM='FORMATTED',STATUS='REPLACE')
 
-! Flame height calculation
-RHO_A = 353./(273.+20.)
+! FLAME HEIGHT CALCULATION
+RHO_A = 353./(273.15+20.)
 D = SQRT(4.*AREA/PI)
 Q_STAR = Q/(RHO_A*C_P*293.*SQRT(G)*D**2.5)
 L_F = D*(3.7*Q_STAR**0.4 - 1.02)
 
-! Emissive power calculation
+! EMISSIVE POWER CALCULATION
 E = 58*(10**(-0.00823*D))
 
 N_X = 0
@@ -433,10 +434,10 @@ DO I=1,20
       IF (Z(K)<0) EXIT
       N_Z = N_Z + 1
 
-      ! Point source radiation model
+      ! POINT SOURCE RADIATION MODEL
       R = SQRT(X(I)**2+(Z(K)-L_F/3.)**2)
 !      SELECT CASE(ABS(IOR(K)))
-      ! Select cos term based on orientation of heat flux gauge
+      ! SELECT COS TERM BASED ON ORIENTATION OF HEAT FLUX GAUGE
 !         CASE(1)
 !            Q_RAD(K) = (X(I)/R)*RADIATIVE_FRACTION*Q/(4.*PI*R**2)
 !         CASE(2)
@@ -447,7 +448,7 @@ DO I=1,20
 
        Q_RAD(K) = RADIATIVE_FRACTION*Q/(4.*PI*R**2)
 
-      ! Solid flame radiation model
+      ! SOLID FLAME RADIATION MODEL
       S = 2*X(I)/D
       IF (Z(K)>0) THEN
          H1 = 2*Z(K)/D
@@ -496,136 +497,136 @@ END SUBROUTINE COMPUTE_RADIATION
 
 SUBROUTINE COMPUTE_THIEF
 
-real, allocatable, dimension(:) :: tmp,tmp_next,r
-real :: alpha,radius,dt,t,flux,dr,ravg,h,eps,sigma,tmp_s, &
-        area,r_critical,c_rho_delta,tmp_conduit,tmp_exp, &
-        flux_in,flux_out,tmp_gas,eps_steel,conduit_radius,view_factor,T_WRITE
-integer :: i,n_cells,n_steps,i_critical,n
-integer, parameter :: n_tmp_g=5
-logical :: conduit
+REAL, ALLOCATABLE, DIMENSION(:) :: TMP,TMP_NEXT,R
+REAL :: ALPHA,RADIUS,DT,T,FLUX,DR,RAVG,H,EPS,SIGMA,TMP_S, &
+        AREA,R_CRITICAL,C_RHO_DELTA,TMP_CONDUIT,TMP_EXP, &
+        FLUX_IN,FLUX_OUT,TMP_GAS,EPS_STEEL,CONDUIT_RADIUS,VIEW_FACTOR,T_WRITE
+INTEGER :: I,N_CELLS,N_STEPS,I_CRITICAL,N
+INTEGER, PARAMETER :: N_TMP_G=5
+LOGICAL :: CONDUIT
 
-! Convert inputs to m,K,kg,J,W, etc.
+! CONVERT INPUTS TO M,K,KG,J,W, ETC.
 
-radius = D/2000.
-jacket_thickness = jacket_thickness/1000.
-conduit_thickness = conduit_thickness/1000.
-conduit_radius = conduit_diameter/2000. - conduit_thickness
-TMP_A = TMP_A + 273.
+RADIUS = D/2000.
+JACKET_THICKNESS = JACKET_THICKNESS/1000.
+CONDUIT_THICKNESS = CONDUIT_THICKNESS/1000.
+CONDUIT_RADIUS = CONDUIT_DIAMETER/2000. - CONDUIT_THICKNESS
+TMP_A = TMP_A + 273.15
 
-! Exposing temperature profile
+! EXPOSING TEMPERATURE PROFILE
 
 T_RAMP(0) = 0.
 TMP_RAMP(0) = TMP_A
-do i=1,n_tmp_g
+DO I=1,N_TMP_G
    IF (T_RAMP(I)==0.) EXIT
-   TMP_RAMP(i) = TMP_RAMP(i) + 273.                 ! Exposing gas temperature, K
-enddo
+   TMP_RAMP(I) = TMP_RAMP(I) + 273.15                 ! EXPOSING GAS TEMPERATURE, K
+ENDDO
 
-! Set various constants
+! SET VARIOUS CONSTANTS
 
-area  = pi*radius**2                 ! Cross-sectional area, m2
-rho_s = mass_per_length/area         ! Density, kg/m3
-c_s   = 1500.                        ! Specific Heat, J/kg/K, fixed
-k_s   = 0.2                          ! Conductivity, W/m/K, fixed
-eps   = 0.95                         ! Emissivity, fixed
-sigma = 5.67e-8                      ! Stefan-Boltzmann, W/m2/K4, fixed
-h     = 10.                          ! Convective heat transfer coefficient, W/m2/K
-alpha = k_s/(rho_s*c_s)              ! Thermal diffusivity, m2/s
-conduit = .false.
-if (conduit_thickness>0.) conduit = .true.
-c_rho_delta = 460.*7850.*conduit_thickness  ! Steel conduit specific heat*density*thickness
-eps_steel = 0.85
+AREA  = PI*RADIUS**2                 ! CROSS-SECTIONAL AREA, M2
+RHO_S = MASS_PER_LENGTH/AREA         ! DENSITY, KG/M3
+C_S   = 1500.                        ! SPECIFIC HEAT, J/KG/K, FIXED
+K_S   = 0.2                          ! CONDUCTIVITY, W/M/K, FIXED
+EPS   = 0.95                         ! EMISSIVITY, FIXED
+SIGMA = 5.67E-8                      ! STEFAN-BOLTZMANN, W/M2/K4, FIXED
+H     = 10.                          ! CONVECTIVE HEAT TRANSFER COEFFICIENT, W/M2/K
+ALPHA = K_S/(RHO_S*C_S)              ! THERMAL DIFFUSIVITY, M2/S
+CONDUIT = .FALSE.
+IF (CONDUIT_THICKNESS>0.) CONDUIT = .TRUE.
+C_RHO_DELTA = 460.*7850.*CONDUIT_THICKNESS  ! STEEL CONDUIT SPECIFIC HEAT*DENSITY*THICKNESS
+EPS_STEEL = 0.85
 
-! Determine the radial increment and time step
+! DETERMINE THE RADIAL INCREMENT AND TIME STEP
 
-dr  = 0.0002                           ! Desired radial increment, m
-n_cells = nint(radius/dr)              ! Number of radial increments
-dr  = radius/n_cells                   ! Actual radial increment, m
-r_critical = radius - jacket_thickness ! Where failure is assumed to occur, just under the jacket
-i_critical = nint(r_critical/dr)       ! Radial cell where failure is to occur
-dt  = dr**2/(2.*alpha)                 ! Time step depends on the radial increment
+DR  = 0.0002                           ! DESIRED RADIAL INCREMENT, M
+N_CELLS = NINT(RADIUS/DR)              ! NUMBER OF RADIAL INCREMENTS
+DR  = RADIUS/N_CELLS                   ! ACTUAL RADIAL INCREMENT, M
+R_CRITICAL = RADIUS - JACKET_THICKNESS ! WHERE FAILURE IS ASSUMED TO OCCUR, JUST UNDER THE JACKET
+I_CRITICAL = NINT(R_CRITICAL/DR)       ! RADIAL CELL WHERE FAILURE IS TO OCCUR
+DT  = DR**2/(2.*ALPHA)                 ! TIME STEP DEPENDS ON THE RADIAL INCREMENT
 
-! Open output file
+! OPEN OUTPUT FILE
 
-open(11,file=TRIM(OUTPUT_FILE),form='formatted',status='replace')
-write(11,'(a)') 'Time,Exposing Temp,Cable Temp,Conduit Temp'
+OPEN(11,FILE=TRIM(OUTPUT_FILE),FORM='FORMATTED',STATUS='REPLACE')
+WRITE(11,'(A)') 'Time,Exposing Temp,Cable Temp,Conduit Temp'
 
-! Allocate arrays
+! ALLOCATE ARRAYS
 
-allocate(tmp(0:n_cells+1))
-allocate(tmp_next(0:n_cells+1))
-allocate(r(0:n_cells))
+ALLOCATE(TMP(0:N_CELLS+1))
+ALLOCATE(TMP_NEXT(0:N_CELLS+1))
+ALLOCATE(R(0:N_CELLS))
 
-! Initial conditions
+! INITIAL CONDITIONS
 
-t   = 0.
-tmp = TMP_A
-tmp_conduit = TMP_A
-do i=0,n_cells
-   r(i) = i*dr  ! m
-enddo
+T   = 0.
+TMP = TMP_A
+TMP_CONDUIT = TMP_A
+DO I=0,N_CELLS
+   R(I) = I*DR  ! M
+ENDDO
 
 T_WRITE = 0.
 
-! March forward in time
+! MARCH FORWARD IN TIME
 
-time_loop: do
+TIME_LOOP: DO
 
-   t = t + dt  ! Advance the time
+   T = T + DT  ! ADVANCE THE TIME
 
-   ! Update the temperature of the cable at the next time step
+   ! UPDATE THE TEMPERATURE OF THE CABLE AT THE NEXT TIME STEP
 
-   do i=1,n_cells
-      ravg = 0.5*(r(i)+r(i-1))
-      tmp_next(i) = tmp(i) + dt*alpha/(ravg*dr)*( r(i)*(tmp(i+1)-tmp(i))/dr - r(i-1)*(tmp(i)-tmp(i-1))/dr )
-   enddo
-   tmp_next(0) = tmp_next(1) ! Fill in ghost cell at the cable center, just to avoid numerical issues
-   tmp_s = tmp_next(n_cells) ! Assume the surface temperature is the center of the outermost radial increment
+   DO I=1,N_CELLS
+      RAVG = 0.5*(R(I)+R(I-1))
+      TMP_NEXT(I) = TMP(I) + DT*ALPHA/(RAVG*DR)*( R(I)*(TMP(I+1)-TMP(I))/DR - R(I-1)*(TMP(I)-TMP(I-1))/DR )
+   ENDDO
+   TMP_NEXT(0) = TMP_NEXT(1) ! FILL IN GHOST CELL AT THE CABLE CENTER, JUST TO AVOID NUMERICAL ISSUES
+   TMP_S = TMP_NEXT(N_CELLS) ! ASSUME THE SURFACE TEMPERATURE IS THE CENTER OF THE OUTERMOST RADIAL INCREMENT
 
-   ! Get the exposing gas temperature at time t by linearly interpolating the input temperature profile
+   ! GET THE EXPOSING GAS TEMPERATURE AT TIME T BY LINEARLY INTERPOLATING THE INPUT TEMPERATURE PROFILE
 
-   exposure_loop: do n=0,n_tmp_g+1
-      if (t>=T_RAMP(n) .and. t<=T_RAMP(n+1)) then
-         tmp_gas = TMP_RAMP(n) + (TMP_RAMP(n+1)-TMP_RAMP(n))*(t-T_RAMP(n))/(T_RAMP(n+1)-T_RAMP(n))
-         exit exposure_loop
-      endif
-   enddo exposure_loop
+   EXPOSURE_LOOP: DO N=0,N_TMP_G+1
+      IF (T>=T_RAMP(N) .AND. T<=T_RAMP(N+1)) THEN
+         TMP_GAS = TMP_RAMP(N) + (TMP_RAMP(N+1)-TMP_RAMP(N))*(T-T_RAMP(N))/(T_RAMP(N+1)-T_RAMP(N))
+         EXIT EXPOSURE_LOOP
+      ENDIF
+   ENDDO EXPOSURE_LOOP
 
-   ! Determine the exposing temperature that the cable sees
+   ! DETERMINE THE EXPOSING TEMPERATURE THAT THE CABLE SEES
 
-   if (conduit) then
-      view_factor = 1./(1./eps + (radius/conduit_radius)*(1.-eps_steel)/eps_steel)
-      flux_in  = eps_steel*sigma*(tmp_gas**4-tmp_conduit**4) + h*(tmp_gas-tmp_conduit)
-      flux_out = view_factor*(radius/conduit_radius)*sigma*(tmp_conduit**4-tmp_s**4)  + h*(tmp_conduit-tmp_s)
-      tmp_conduit = tmp_conduit + dt*(flux_in-flux_out)/c_rho_delta
-      tmp_exp = tmp_conduit
-   else
-      view_factor = eps
-      tmp_exp = tmp_gas
-   endif
+   IF (CONDUIT) THEN
+      VIEW_FACTOR = 1./(1./EPS + (RADIUS/CONDUIT_RADIUS)*(1.-EPS_STEEL)/EPS_STEEL)
+      FLUX_IN  = EPS_STEEL*SIGMA*(TMP_GAS**4-TMP_CONDUIT**4) + H*(TMP_GAS-TMP_CONDUIT)
+      FLUX_OUT = VIEW_FACTOR*(RADIUS/CONDUIT_RADIUS)*SIGMA*(TMP_CONDUIT**4-TMP_S**4)  + H*(TMP_CONDUIT-TMP_S)
+      TMP_CONDUIT = TMP_CONDUIT + DT*(FLUX_IN-FLUX_OUT)/C_RHO_DELTA
+      TMP_EXP = TMP_CONDUIT
+   ELSE
+      VIEW_FACTOR = EPS
+      TMP_EXP = TMP_GAS
+   ENDIF
 
-   ! Get the heat flux to the cable surface
+   ! GET THE HEAT FLUX TO THE CABLE SURFACE
 
-   flux = view_factor*sigma*(tmp_exp**4-tmp_s**4) + h*(tmp_exp-tmp_s)
+   FLUX = VIEW_FACTOR*SIGMA*(TMP_EXP**4-TMP_S**4) + H*(TMP_EXP-TMP_S)
 
-   ! Set the ghost cell value of the cable temperature just off the surface
+   ! SET THE GHOST CELL VALUE OF THE CABLE TEMPERATURE JUST OFF THE SURFACE
 
-   tmp_next(n_cells+1) = tmp_next(n_cells) + dr*flux/k_s   ! Boundary condition at exterior surface
+   TMP_NEXT(N_CELLS+1) = TMP_NEXT(N_CELLS) + DR*FLUX/K_S   ! BOUNDARY CONDITION AT EXTERIOR SURFACE
 
-   ! Move the temperatures at the next time step back into the tmp array
+   ! MOVE THE TEMPERATURES AT THE NEXT TIME STEP BACK INTO THE TMP ARRAY
 
-   tmp = tmp_next  ! Move update temperatures back to the tmp array
+   TMP = TMP_NEXT  ! MOVE UPDATE TEMPERATURES BACK TO THE TMP ARRAY
 
-   ! Write output
+   ! WRITE OUTPUT
 
    IF (T>T_WRITE) THEN
-      write(11,'(f6.1,a,f6.1,a,f6.1,a,f6.1)') t,',',tmp_gas-273.,',',tmp(i_critical)-273.,',',tmp_conduit-273.
+      WRITE(11,'(F6.1,A,F6.1,A,F6.1,A,F6.1)') T,',',TMP_GAS-273.15,',',TMP(I_CRITICAL)-273.15,',',TMP_CONDUIT-273.15
       T_WRITE = T_WRITE + T_END/50.
    ENDIF
 
-   IF (T>T_END) EXIT time_loop
+   IF (T>T_END) EXIT TIME_LOOP
 
-enddo time_loop
+ENDDO TIME_LOOP
 
 CLOSE(11)
 
@@ -640,9 +641,9 @@ CHARACTER(30) :: FMT
 
 OPEN(11,FILE=TRIM(OUTPUT_FILE),FORM='FORMATTED',STATUS='REPLACE')
 
-TMP_A = TMP_A + 273.
+TMP_A = TMP_A + 273.15
 
-! Scaling factor for Q, 2Q, or 4Q (open, wall, or corner fire placement)
+! SCALING FACTOR FOR Q, 2Q, OR 4Q (OPEN, WALL, OR CORNER FIRE PLACEMENT)
 Q = Q * LOCATION_FACTOR
 
 DO I=0,50
@@ -650,7 +651,7 @@ DO I=0,50
    T = I*T_END/50.
 
    IF (T_SQUARED) THEN
-      ! Scaling factor for Q, 2Q, or 4Q (open, wall, or corner fire placement)
+      ! SCALING FACTOR FOR Q, 2Q, OR 4Q (OPEN, WALL, OR CORNER FIRE PLACEMENT)
       Q = ALPHA * T**2 * LOCATION_FACTOR
    ENDIF
 
@@ -662,7 +663,7 @@ DO I=0,50
       R = R_VALUES(J)
       H = H_VALUES(J)
 
-      ! Compute ceiling jet temperature
+      ! COMPUTE CEILING JET TEMPERATURE
 
       IF (R/H<=0.18) THEN
          T_JET(J) = (16.9 * Q**(2./3.) / H**(5./3.)) + (TMP_A)
@@ -670,7 +671,7 @@ DO I=0,50
          T_JET(J) = (5.38 * (Q/R)**(2./3.) / H) + (TMP_A)
       ENDIF
 
-      ! Compute ceiling jet velocity
+      ! COMPUTE CEILING JET VELOCITY
 
       IF (R/H<=0.15) THEN
           U_JET = 0.947 * (Q/H)**(1./3.)
@@ -683,10 +684,10 @@ DO I=0,50
          WRITE(FMT,'(A,I2.1,5A)') "(",N_PTS*2,"(","A",",','),","A",")"
          WRITE(11,FMT) 'Time',(TRIM(LABEL(K)),K=1,N_PTS),('Velocity '//(TRIM(LABEL(K))),K=1,N_PTS)
          WRITE(FMT,'(A,I2.1,5A)') "(",N_PTS*2,"(","F7.2",",','),","F7.2",")"
-         WRITE(11,FMT) T, (T_JET(K)-273,K=1,N_PTS),(U_JET(K),K=1,N_PTS)
+         WRITE(11,FMT) T, (T_JET(K)-273.15,K=1,N_PTS),(U_JET(K),K=1,N_PTS)
       ELSE
          WRITE(FMT,'(A,I2.1,5A)') "(",N_PTS*2,"(","F7.2",",','),","F7.2",")"
-         WRITE(11,FMT) T, (T_JET(K)-273,K=1,N_PTS),(U_JET(K),K=1,N_PTS)
+         WRITE(11,FMT) T, (T_JET(K)-273.15,K=1,N_PTS),(U_JET(K),K=1,N_PTS)
    ENDIF
 
 ENDDO
@@ -706,21 +707,21 @@ OPEN(11,FILE=TRIM(OUTPUT_FILE),FORM='FORMATTED',STATUS='REPLACE')
 
 WRITE(11,'(A)') 'Time,Activation,Ceiling jet temperature,Activation time,Total HRR'
 
-TMP_A = TMP_A + 273
-ACTIVATION_TEMPERATURE = ACTIVATION_TEMPERATURE + 273
+TMP_A = TMP_A + 273.15
+ACTIVATION_TEMPERATURE = ACTIVATION_TEMPERATURE + 273.15
 ITER = .TRUE.
 T = 0
 
 DO WHILE (ITER)
    IF ((T_SQUARED) .AND. (T<=CUTOFF_TIME)) THEN
-      ! Scaling factor for Q, 2Q, or 4Q (open, wall, or corner fire placement)
+      ! SCALING FACTOR FOR Q, 2Q, OR 4Q (OPEN, WALL, OR CORNER FIRE PLACEMENT)
       Q = ALPHA * T**2 * LOCATION_FACTOR
    ELSEIF ((T_SQUARED) .AND. (T>CUTOFF_TIME)) THEN
-      ! Scaling factor for Q, 2Q, or 4Q (open, wall, or corner fire placement)
+      ! SCALING FACTOR FOR Q, 2Q, OR 4Q (OPEN, WALL, OR CORNER FIRE PLACEMENT)
       Q = ALPHA * CUTOFF_TIME**2 * LOCATION_FACTOR
    ENDIF
 
-   ! Compute ceiling jet temperature
+   ! COMPUTE CEILING JET TEMPERATURE
 
    IF (R/H<=0.18) THEN
       T_JET = (16.9 * Q**(2./3.) / H**(5./3.)) + (TMP_A)
@@ -728,7 +729,7 @@ DO WHILE (ITER)
       T_JET = (5.38 * (Q/R)**(2./3.) / H) + (TMP_A)
    ENDIF
 
-   ! Compute ceiling jet velocity
+   ! COMPUTE CEILING JET VELOCITY
 
    IF (R/H<=0.15) THEN
        U_JET = 0.947 * (Q/H)**(1./3.)
@@ -736,19 +737,19 @@ DO WHILE (ITER)
        U_JET = 0.197 * Q**(1./3.) * H**(1./2.) / R**(5./6.)
    ENDIF
 
-   ! Compute sprinkler or detector activation time
+   ! COMPUTE SPRINKLER OR DETECTOR ACTIVATION TIME
 
-   t_activation = (RTI / SQRT(U_JET)) * LOG((T_JET - TMP_A)/(T_JET - ACTIVATION_TEMPERATURE))
+   T_ACTIVATION = (RTI / SQRT(U_JET)) * LOG((T_JET - TMP_A)/(T_JET - ACTIVATION_TEMPERATURE))
 
-   IF ((((T_JET - TMP_A)/(T_JET - ACTIVATION_TEMPERATURE))<=0) .OR. (t_activation<=0)) THEN
-      WRITE(11,'(F6.1,A1,I2,A1,F6.1,A5,F6.1)') T,',',-1,',',T_JET-273.,',NaN,',Q
-   ELSEIF (t_activation>T) THEN
-      WRITE(11,'(F6.1,A1,I2,A1,F6.1,A1,F6.1,A1,F6.1)') T,',',-1,',',T_JET-273.,',',t_activation,',',Q
+   IF ((((T_JET - TMP_A)/(T_JET - ACTIVATION_TEMPERATURE))<=0) .OR. (T_ACTIVATION<=0)) THEN
+      WRITE(11,'(F6.1,A1,I2,A1,F6.1,A5,F6.1)') T,',',-1,',',T_JET-273.15,',NAN,',Q
+   ELSEIF (T_ACTIVATION>T) THEN
+      WRITE(11,'(F6.1,A1,I2,A1,F6.1,A1,F6.1,A1,F6.1)') T,',',-1,',',T_JET-273.15,',',T_ACTIVATION,',',Q
    ELSE
-      WRITE(11,'(F6.1,A1,I2,A1,F6.1,A1,F6.1,A1,F6.1)') T,',',1,',',T_JET-273.,',',t_activation,',',Q
+      WRITE(11,'(F6.1,A1,I2,A1,F6.1,A1,F6.1,A1,F6.1)') T,',',1,',',T_JET-273.15,',',T_ACTIVATION,',',Q
    ENDIF
 
-   IF ((t_activation>0) .AND. (t_activation<=T)) THEN
+   IF ((T_ACTIVATION>0) .AND. (T_ACTIVATION<=T)) THEN
       ITER = .FALSE.
    ELSE
       T = T + 1
@@ -770,7 +771,7 @@ CHARACTER(30) :: FMT
 
 OPEN(11,FILE=TRIM(OUTPUT_FILE),FORM='FORMATTED',STATUS='REPLACE')
 
-TMP_A = TMP_A + 273
+TMP_A = TMP_A + 273.15
 RHO_A = 353./(TMP_A)
 
 DO I=1,30
@@ -784,19 +785,19 @@ DO I=1,30
    IF (Z(J)<0) EXIT
       N_Z = N_Z + 1
 
-      ! Compute convective HRR
+      ! COMPUTE CONVECTIVE HRR
 
       Q_C = Q_RAMP(I) * (1 - RADIATIVE_FRACTION)
 
-      ! Compute fire diameter
+      ! COMPUTE FIRE DIAMETER
 
       D = SQRT(4.*A_C/PI)
 
-      ! Compute hypothetical virtual origin
+      ! COMPUTE HYPOTHETICAL VIRTUAL ORIGIN
 
       Z_0 = -1.02*D + 0.083*(Q_RAMP(I))**(2./5.)
 
-      ! Compute plume centerline temperature
+      ! COMPUTE PLUME CENTERLINE TEMPERATURE
 
       T_PLUME(J) = 9.1 * ((TMP_A)/(G*(C_P**2.)*(RHO_A)**2.))**(1./3.) * (Q_C)**(2./3.) * (Z(J)-Z_0)**(-5./3.) + (TMP_A)
    ENDDO
@@ -806,7 +807,7 @@ DO I=1,30
       WRITE(11,FMT) 'Time',(TRIM(Z_LABEL(K)),K=1,N_Z)
    ENDIF
    WRITE(FMT,'(A,I1.1,5A)') "(",N_Z,"(","F8.2",",','),","F8.2",")"
-   WRITE(11,FMT) TIME_RAMP(I), (T_PLUME(K)-273,K=1,N_Z)
+   WRITE(11,FMT) TIME_RAMP(I), (T_PLUME(K)-273.15,K=1,N_Z)
 ENDDO
 
 CLOSE(11)
@@ -821,8 +822,8 @@ REAL :: Q,Z_Q_2_5,KAPPA,ETA,T_P,SIGMA,MAX_STEEL_TEMP(20)
 REAL :: T_STEEL(9999),DELTA_T
 CHARACTER(30) :: FMT
 
-SIGMA = 5.67e-11
-TMP_A = TMP_A + 273.
+SIGMA = 5.67E-11
+TMP_A = TMP_A + 273.15
 
 OPEN(11,FILE=TRIM(OUTPUT_FILE),FORM='FORMATTED',STATUS='REPLACE')
 
@@ -840,7 +841,7 @@ DO I=1,9999
 
       Q = Q_RAMP(I)
 
-      ! Compute correlation constants depending on continuous, intermittent, or plume regions
+      ! COMPUTE CORRELATION CONSTANTS DEPENDING ON CONTINUOUS, INTERMITTENT, OR PLUME REGIONS
 
       Z_Q_2_5 = Z(J)/(Q)**(2./5.)
 
@@ -858,11 +859,11 @@ DO I=1,9999
          REGION = 3
       ENDIF
 
-      ! Compute plume centerline temperature
+      ! COMPUTE PLUME CENTERLINE TEMPERATURE
 
       T_PLUME(J) = (((KAPPA)/(0.9*SQRT(2*G)))**(2.) * (Z_Q_2_5)**(2*ETA-1) * (TMP_A)) + (TMP_A)
 
-      ! Compute steel temperatures
+      ! COMPUTE STEEL TEMPERATURES
 
       IF (STEEL_UNPROTECTED) THEN
          DELTA_T = 1
@@ -895,20 +896,20 @@ DO I=1,9999
          WRITE(FMT,'(A,I2.1,5A)') "(",N_Z*2,"(","A",",','),","A",")"
          WRITE(11,FMT) 'Time', (TRIM(Z_LABEL(K)),K=1,N_Z), (TRIM('Steel Temperature '//Z_LABEL(K)),K=1,N_Z)
          WRITE(FMT,'(A,I2.1,5A)') "(",N_Z*2,"(","F7.2",",','),","F7.2",")"
-         WRITE(11,FMT) TIME_RAMP(I), (T_PLUME(K)-273,K=1,N_Z), (MAX_STEEL_TEMP(K)-273,K=1,N_Z)
+         WRITE(11,FMT) TIME_RAMP(I), (T_PLUME(K)-273.15,K=1,N_Z), (MAX_STEEL_TEMP(K)-273.15,K=1,N_Z)
       ELSEIF (.NOT. PROFILE) THEN
          WRITE(FMT,'(A,I2.1,5A)') "(",N_Z*2,"(","F8.2",",','),","F8.2",")"
-         WRITE(11,FMT) TIME_RAMP(I), (T_PLUME(K)-273,K=1,N_Z), (MAX_STEEL_TEMP(K)-273,K=1,N_Z)
+         WRITE(11,FMT) TIME_RAMP(I), (T_PLUME(K)-273.15,K=1,N_Z), (MAX_STEEL_TEMP(K)-273.15,K=1,N_Z)
       ENDIF
    ELSE
       IF ((I==1) .AND. (.NOT. PROFILE)) THEN
          WRITE(FMT,'(A,I2.1,5A)') "(",N_Z,"(","A",",','),","A",")"
          WRITE(11,FMT) 'Time', (TRIM(Z_LABEL(K)),K=1,N_Z)
          WRITE(FMT,'(A,I2.1,5A)') "(",N_Z,"(","F7.2",",','),","F7.2",")"
-         WRITE(11,FMT) TIME_RAMP(I), (T_PLUME(K)-273,K=1,N_Z)
+         WRITE(11,FMT) TIME_RAMP(I), (T_PLUME(K)-273.15,K=1,N_Z)
       ELSEIF (.NOT. PROFILE) THEN
          WRITE(FMT,'(A,I2.1,5A)') "(",N_Z,"(","F7.2",",','),","F7.2",")"
-         WRITE(11,FMT) TIME_RAMP(I), (T_PLUME(K)-273,K=1,N_Z)
+         WRITE(11,FMT) TIME_RAMP(I), (T_PLUME(K)-273.15,K=1,N_Z)
       ENDIF
    ENDIF
 ENDDO
