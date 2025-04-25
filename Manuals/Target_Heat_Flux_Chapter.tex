@@ -24,7 +24,7 @@ R = \sqrt{x^2 + \left(z - \frac{L\sb{f}}{3} \right)^2}
 \ee
 where $x$ is the horizontal distance from the point source to the edge of the target~(\si{m}), and $z$ is the height of the heat flux target~(\si{m}). The flame height, $L\sb{f}$ (\si{m}), is given by
 \be
-L\sb{f} = D (3.7 Q^{*^{2/5}} - 1.02)
+L\sb{f} =0.235 Q^{2/5} - 1.02 D
 \label{eq:point_source_Lf}
 \ee
 where $D$ is the diameter of the fire source~(\si{m}) and is given by
@@ -118,8 +118,10 @@ The effective emissive power of the flame, $E$, is given by
 E = 58 (10^{-0.0823 D})
 \label{eq:solid_flame_E}
 \ee
-where $D$ is the effective fire diameter~(\si{m}).
-
+where $D$ is the effective fire diameter~(\si{m}). For smaller fires the resulting $E$ can imply a larger than expected radiant heat release rate. To avoid this, $E$ is limited to be no larger than
+\be
+\frac{\chi\sb{r} \dot Q}{2 \pi R L\sb{f}}
+\ee
 \subsection*{Ground-Level Target}
 
 \noindent For a heat flux target that is at the same level as the base of the flame, the view factor between the target and the flame, $F_{12}$, is given by
@@ -208,9 +210,9 @@ $z$ (m)         &  0.0                                                      \\ \
                                    &                                        \\
 \multicolumn{1}{|c|}{\rb{Radius}}  &  \multicolumn{1}{c|}{\rb{Heat Flux}}   \\
 \multicolumn{1}{|c|}{\rb{(m)}}     &  \multicolumn{1}{c|}{\rb{(kW/m$^2$)}}  \\ \hline \hline
-\multicolumn{1}{|c|}{0.50}         &  \multicolumn{1}{c|}{11.18}            \\ \hline
-\multicolumn{1}{|c|}{0.75}         &  \multicolumn{1}{c|}{6.90}             \\ \hline
-\multicolumn{1}{|c|}{1.00}         &  \multicolumn{1}{c|}{4.69}             \\ \hline
+\multicolumn{1}{|c|}{0.50}         &  \multicolumn{1}{c|}{5.64}            \\ \hline
+\multicolumn{1}{|c|}{0.75}         &  \multicolumn{1}{c|}{3.51}             \\ \hline
+\multicolumn{1}{|c|}{1.00}         &  \multicolumn{1}{c|}{2.40}             \\ \hline
 \end{tabular}
 \end{center}
 \end{table}

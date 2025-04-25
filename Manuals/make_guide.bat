@@ -3,7 +3,7 @@ set paper=Correlation_Guide
 
 git describe --long --dirty > gitinfo.txt
 set /p gitrevision=<gitinfo.txt
-echo \newcommand^{\gitrevision^}^{%gitrevision%^} > ..\..\fds\Manuals\Bibliography\gitrevision.tex
+echo \newcommand^{\gitrevision^}^{%gitrevision%^} > gitrevision.tex
 
 echo pass 1
 pdflatex -interaction nonstopmode %paper% > %paper%.err
