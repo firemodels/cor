@@ -8,7 +8,7 @@ clean_build=1
 # Build Correlation Guide
 
 gitrevision=`git describe --long --dirty`
-echo "\\newcommand{\\gitrevision}{$gitrevision}" > ../../fds/Manuals/Bibliography/gitrevision.tex
+echo "\\newcommand{\\gitrevision}{$gitrevision}" > gitrevision.tex
 
 pdflatex -interaction nonstopmode Correlation_Guide &> Correlation_Guide.err
 bibtex Correlation_Guide &> Correlation_Guide.err
