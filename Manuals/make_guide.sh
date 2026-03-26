@@ -7,13 +7,14 @@ clean_build=1
 
 # Build Correlation Guide
 
-gitrevision=`git describe --long --dirty`
+gitrevision=`git describe --abbrev=7 --long --dirty`
 echo "\\newcommand{\\gitrevision}{$gitrevision}" > gitrevision.tex
 
 pdflatex -interaction nonstopmode Correlation_Guide &> Correlation_Guide.err
-bibtex Correlation_Guide &> Correlation_Guide.err
+biber                             Correlation_Guide &> Correlation_Guide_biber.err
 pdflatex -interaction nonstopmode Correlation_Guide &> Correlation_Guide.err
 pdflatex -interaction nonstopmode Correlation_Guide &> Correlation_Guide.err
+cat Correlation_Guide_biber.err >> Correlation_Guide.err
 
 # Scan and report any errors in the LaTeX build process
 if [[ `grep -E "Error:|Fatal error|! LaTeX Error:|Paragraph ended before|Missing \\\$ inserted|Misplaced" -I Correlation_Guide.err | grep -v "xpdf supports version 1.5"` == "" ]]

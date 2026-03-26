@@ -3,16 +3,9 @@
 # This script runs all of the Correlation cases
 
 export SVNROOT=`pwd`/..
-export correlations=$SVNROOT/Source/correlations
+export correlations=$SVNROOT/Build/intel_linux_64/correlations_intel_linux_64
 export VERIFICATION_DIR=$SVNROOT/Verification
 export VALIDATION_DIR=$SVNROOT/Validation
-
-# First, compile latest version of correlations.f90
-
-source $IFORT_COMPILER/bin/compilervars.sh intel64
-
-cd $SVNROOT/Source
-ifort correlations.f90 -o correlations
 
 # Run all Correlation verification cases
 
