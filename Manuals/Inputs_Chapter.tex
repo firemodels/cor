@@ -48,7 +48,7 @@ ATF Corridors 500 kW  &  485            \\ \hline
 
 \subsection*{Cable Failure Time~\cite{CAROLFIRE}}
 
-The cable and conduit targets were not completely surrounded by the Penlight apparatus, which had openings at its ends. Therefore, the exposing temperature ramp $T\sb{ramp}$ was calculated using a view factor of 0.90 and the experimentally measured shroud temperature.
+The cable and conduit targets were not completely surrounded by the Penlight apparatus, which had openings at its ends. Therefore, the exposing temperature ramp $T_{\rm ramp}$ was calculated using a view factor of 0.90 and the experimentally measured shroud temperature.
 
 \begin{table}[!ht]
 \caption[Validation input parameters for CAROLFIRE cases, cable failure time]
@@ -58,7 +58,7 @@ The cable and conduit targets were not completely surrounded by the Penlight app
 \begin{tabular}{|l|c|c|c|c|c|c|c|}
 \hline
                   &  Cable     &  Mass per     &  Jacket     &  Conduit   &  Conduit    &                   &               \\
-Test              &  Diameter  &  Unit Length  &  Thickness  &  Diameter  &  Thickness  &  $T_\infty$       &  $t\sb{end}$  \\
+Test              &  Diameter  &  Unit Length  &  Thickness  &  Diameter  &  Thickness  &  $T_\infty$       &  $t_{\rm end}$  \\
                   &  (mm)      &  (kg/m)       &  (mm)       &  (mm)      &  (mm)       &  (\si{\celsius})  &  (s)          \\ \hline \hline
 Penlight Test 1   &  16.3      &  0.529        &  1.5        &  -         &  -          &  24               &  1800         \\ \hline
 Penlight Test 2   &  16.3      &  0.529        &  1.5        &  -         &  -          &  24               &  1800         \\ \hline
@@ -111,7 +111,7 @@ Penlight Test 65  &   7.0      &  0.076        &  1.0        &  -         &  -  
 \begin{tabular}{|l|l|l|}
 \hline
                   &                                &                             \\
-\rb{Test}         &  \rb{$t\sb{ramp}$}             &  \rb{$T\sb{ramp}$}          \\
+\rb{Test}         &  \rb{$t_{\rm ramp}$}             &  \rb{$T_{\rm ramp}$}          \\
                   &  \rb{(s)}                      &  \rb{(\si{\celsius})}       \\ \hline \hline
 Penlight Test 1   &  0, 70, 820, 1240, 1600, 1800  &  24, 460, 460, 275, 178, 0  \\ \hline
 Penlight Test 2   &  0, 80, 800, 1220, 1600, 1800  &  24, 460, 460, 275, 178, 0  \\ \hline
@@ -169,7 +169,7 @@ Penlight Test 65  &  0, 65, 540, 780               &  24, 309, 309, 217         
 \hline
                       &                            \\
 \rb{Input Parameter}  &  \rb{Value}                \\ \hline \hline
-$\chi\sb{r}$          &  0.32                      \\ \hline
+$\chi_{\rm r}$          &  0.32                      \\ \hline
 $x$ (m)               &  0.5, 0.75, 1.0, 1.5, 2.0  \\ \hline
 $z$ (m)               &  0.0, 0.5, 1.0, 1.5        \\ \hline
 IOR                   &  2                         \\ \hline
@@ -221,7 +221,7 @@ IOR                   &  2                         \\ \hline
 $L$ (m)                     &  18.3        \\ \hline
 $W$ (m)                     &  12.2        \\ \hline
 $H$ (m)                     &  6.1         \\ \hline
-$c\sb{p}$ (\si{kJ/(kg.K)})  &  1.0         \\ \hline
+$c_{\rm p}$ (\si{kJ/(kg.K)})  &  1.0         \\ \hline
 $k$ (\si{kW/(m.K)})         &  0.00023     \\ \hline
 $\rho$ (kg/m$^3$)           &  1000        \\ \hline
 $c$ (\si{kJ/(kg.K)})        &  1.16        \\ \hline
@@ -233,7 +233,7 @@ $\delta$ (m)                &  0.025       \\ \hline
 \begin{tabular}{|l|l|c|c|c|c|}
 \hline
            &                    &                 &                 &                        &                    \\
-\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$\dot m$}  &  \rb{$T_\infty$}       &  \rb{$t\sb{end}$}  \\
+\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$\dot m$}  &  \rb{$T_\infty$}       &  \rb{$t_{\rm end}$}  \\
            &                    &  \rb{(kW)}      &  \rb{(kg/s)}    &  \rb{(\si{\celsius})}  &  \rb{(s)}          \\ \hline \hline
 Test 1     &  FPA, DB           &  516            &  4.5            &  15                    &  600               \\ \hline
 Test 2     &  FPA, DB           &  516            &  4.5            &  14                    &  600               \\ \hline
@@ -275,8 +275,8 @@ Test 22    &  FPA, DB           &  1000           &  0.45           &  14       
 \rb{Input Parameter}        &  \rb{Value}  \\ \hline \hline
 $z$ (m)                     &  5.98        \\ \hline
 $A$ (m$^2$)                 &  0.64        \\ \hline
-$\chi\sb{r}$                &  0.40        \\ \hline
-$c\sb{p}$ (\si{kJ/(kg.K)})  &  1.0         \\ \hline
+$\chi_{\rm r}$                &  0.40        \\ \hline
+$c_{\rm p}$ (\si{kJ/(kg.K)})  &  1.0         \\ \hline
 \end{tabular}
 \end{center}
 
@@ -377,7 +377,7 @@ For the cases with natural ventilation (MQH), the door size was 2.06 m high by 0
 \hline
                             &              \\
 \rb{Input Parameter}        &  \rb{Value}  \\ \hline \hline
-$c\sb{p}$ (\si{kJ/(kg.K)})  &  1.0         \\ \hline
+$c_{\rm p}$ (\si{kJ/(kg.K)})  &  1.0         \\ \hline
 $k$ (\si{kW/(m.K)})         &  0.000463    \\ \hline
 $\rho$ (kg/m$^3$)           &  1607        \\ \hline
 $c$ (\si{kJ/(kg.K)})        &  1.0         \\ \hline
@@ -392,7 +392,7 @@ Fuel Height                 &  0           \\ \hline
 \begin{tabular}{|l|l|c|c|c|c|c|c|c|}
 \hline
            &                    &                 &            &            &            &                 &                        &                    \\
-\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$L$}  &  \rb{$W$}  &  \rb{$H$}  &  \rb{$\dot m$}  &  \rb{$T_\infty$}       &  \rb{$t\sb{end}$}  \\
+\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$L$}  &  \rb{$W$}  &  \rb{$H$}  &  \rb{$\dot m$}  &  \rb{$T_\infty$}       &  \rb{$t_{\rm end}$}  \\
            &                    &  \rb{(kW)}      &  \rb{(m)}  &  \rb{(m)}  &  \rb{(m)}  &  \rb{(kg/s)}    &  \rb{(\si{\celsius})}  &  \rb{(s)}          \\ \hline \hline
 Test 1     &  Beyler            &  200            &  6.0       &  4.0       &  4.5       &  -              &  23                    &  500               \\ \hline
 Test 2     &  Beyler            &  200            &  6.0       &  4.0       &  4.5       &  -              &  27                    &  500               \\ \hline
@@ -428,7 +428,7 @@ Test 25    &  FPA, DB           &  200            &  6.0       &  4.0       &  3
 \begin{tabular}{|l|l|c|c|c|c|c|c|c|}
 \hline
            &                    &                 &            &            &            &                 &                        &                    \\
-\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$L$}  &  \rb{$W$}  &  \rb{$H$}  &  \rb{$\dot m$}  &  \rb{$T_\infty$}       &  \rb{$t\sb{end}$}  \\
+\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$L$}  &  \rb{$W$}  &  \rb{$H$}  &  \rb{$\dot m$}  &  \rb{$T_\infty$}       &  \rb{$t_{\rm end}$}  \\
            &                    &  \rb{(kW)}      &  \rb{(m)}  &  \rb{(m)}  &  \rb{(m)}  &  \rb{(kg/s)}    &  \rb{(\si{\celsius})}  &  \rb{(s)}          \\ \hline \hline
 Test 26    &  FPA, DB           &  200            &  6.0       &  4.0       &  3.0       &  0.586          &  24                    &  4000              \\ \hline
 Test 27    &  FPA, DB           &  200            &  6.0       &  4.0       &  3.0       &  0.116          &  23                    &  500               \\ \hline
@@ -494,13 +494,13 @@ $\dot Q$ (kW)         &  100         \\ \hline
 $L$ (m)               &  2.34        \\ \hline
 $W$ (m)               &  2.34        \\ \hline
 $H$ (m)               &  2.16        \\ \hline
-$H\sb{o}$ (m)         &  1.6         \\ \hline
-$W\sb{o}$ (m)         &  0.81        \\ \hline
+$H_{\rm o}$ (m)         &  1.6         \\ \hline
+$W_{\rm o}$ (m)         &  0.81        \\ \hline
 $k$ (\si{kW/(m.K)})   &  0.00017     \\ \hline
 $\rho$ (kg/m$^3$)     &  128         \\ \hline
 $c$ (\si{kJ/(kg.K)})  &  1.04        \\ \hline
 $\delta$ (m)          &  0.05        \\ \hline
-$t\sb{end}$ (s)       &  1200        \\ \hline
+$t_{\rm end}$ (s)       &  1200        \\ \hline
 \end{tabular}
 \end{center}
 
@@ -539,7 +539,7 @@ For the cases with natural ventilation (MQH), the door size was 2.0 m high by 2.
 $L$ (m)                     &  21.66       \\ \hline
 $W$ (m)                     &  7.04        \\ \hline
 $H$ (m)                     &  3.82        \\ \hline
-$c\sb{p}$ (\si{kJ/(kg.K)})  &  1.0         \\ \hline
+$c_{\rm p}$ (\si{kJ/(kg.K)})  &  1.0         \\ \hline
 $k$ (\si{kW/(m.K)})         &  0.00012     \\ \hline
 $\rho$ (kg/m$^3$)           &  737         \\ \hline
 $c$ (\si{kJ/(kg.K)})        &  1.42        \\ \hline
@@ -554,7 +554,7 @@ Fuel Height                 &  0           \\ \hline
 \begin{tabular}{|l|l|c|c|c|c|c|c|}
 \hline
            &                    &                 &                 &                  &                  &                        &                    \\
-\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$\dot m$}  &  \rb{$H\sb{o}$}  &  \rb{$W\sb{o}$}  &  \rb{$T_\infty$}       &  \rb{$t\sb{end}$}  \\
+\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$\dot m$}  &  \rb{$H_{\rm o}$}  &  \rb{$W_{\rm o}$}  &  \rb{$T_\infty$}       &  \rb{$t_{\rm end}$}  \\
            &                    &  \rb{(kW)}      &  \rb{(kg/s)}    &  \rb{(m)}        &  \rb{(m)}        &  \rb{(\si{\celsius})}  &  \rb{(s)}          \\ \hline \hline
 Test 1     &  Beyler            &  410            &  -              &  -               &  -               &  22                    &  1350              \\ \hline
 Test 2     &  Beyler            &  1190           &  -              &  -               &  -               &  26                    &  625               \\ \hline
@@ -600,7 +600,7 @@ IOR                   &  -3, -3, 2, -3, -2             \\ \hline
 \begin{tabular}{|l|c|c|c|}
 \hline
            &                 &                     &                \\
-\rb{Test}  &  \rb{$\dot Q$}  &  \rb{$\chi\sb{r}$}  &  \rb{$A$}      \\
+\rb{Test}  &  \rb{$\dot Q$}  &  \rb{$\chi_{\rm r}$}  &  \rb{$A$}      \\
            &  \rb{(kW)}      &                     &  \rb{(m$^2$)}  \\ \hline \hline
 Test 1     &  410            &  0.44               &  0.671         \\ \hline
 Test 2     &  1190           &  0.44               &  1.028         \\ \hline
@@ -686,7 +686,7 @@ Test 18    &  1180           &  27                    \\ \hline
 \rb{Input Parameter}      &  \rb{Value}  \\ \hline \hline
 Location Factor           &  1           \\ \hline
 $H$ (m)                   &  2.1         \\ \hline
-$t\sb{end}$ (s)           &  300         \\ \hline
+$t_{\rm end}$ (s)           &  300         \\ \hline
 \end{tabular}
 \end{center}
 
@@ -714,8 +714,8 @@ Test SDC39  &  0.00617          &  1.25      &  25                    \\ \hline
 
 \subsection*{Smoke Detector Activation Time (Temperature Rise)~\cite{SFPE:Alpert, Bukowski:2}}
 
-The fire growth was specified as $\dot Q = \alpha t^2$ up to a cutoff time of $t\sb{fire}$.
-After the time $t\sb{fire}$, the fire HRR was steady.
+The fire growth was specified as $\dot Q = \alpha t^2$ up to a cutoff time of $t_{\rm fire}$.
+After the time $t_{\rm fire}$, the fire HRR was steady.
 
 \begin{table}[!ht]
 \caption[Validation input parameters for NIST Smoke Alarms cases, smoke detector activation time]
@@ -727,8 +727,8 @@ After the time $t\sb{fire}$, the fire HRR was steady.
                                   &              \\
 \rb{Input Parameter}              &  \rb{Value}  \\ \hline \hline
 Location Factor                   &  1           \\ \hline
-$t\sb{fire}$ (s)                  &  300         \\ \hline
-$\Delta T\sb{c}$ (\si{\celsius})  &  10          \\ \hline
+$t_{\rm fire}$ (s)                  &  300         \\ \hline
+$\Delta T_{\rm c}$ (\si{\celsius})  &  10          \\ \hline
 RTI (\si{(m.s)^{1/2}})            &  5           \\ \hline
 \end{tabular}
 \end{center}
@@ -772,8 +772,8 @@ $\dot Q$ (kW)               &  450         \\ \hline
 $L$ (m)                     &  3.6         \\ \hline
 $W$ (m)                     &  3.6         \\ \hline
 $H$ (m)                     &  2.4         \\ \hline
-$H\sb{o}$ (m)               &  2.0         \\ \hline
-$W\sb{o}$ (m)               &  0.8         \\ \hline
+$H_{\rm o}$ (m)               &  2.0         \\ \hline
+$W_{\rm o}$ (m)               &  0.8         \\ \hline
 $k$ (\si{kW/(m.K)})         &  0.0001      \\ \hline
 $\rho$ (kg/m$^3$)           &  600         \\ \hline
 $c$ (\si{kJ/(kg.K)})        &  0.8         \\ \hline
@@ -786,7 +786,7 @@ $T_\infty$ (\si{\celsius})  &  20          \\ \hline
 \begin{tabular}{|l|l|c|}
 \hline
            &                    &                    \\
-\rb{Test}  &  \rb{Correlation}  &  \rb{$t\sb{end}$}  \\
+\rb{Test}  &  \rb{Correlation}  &  \rb{$t_{\rm end}$}  \\
            &                    &  \rb{(s)}          \\ \hline \hline
 Test 1     &  MQH               &  2400              \\ \hline
 Test 2     &  MQH               &  2400              \\ \hline
@@ -801,7 +801,7 @@ Test 3     &  MQH               &  3600              \\ \hline
 
 \subsection*{Steel Temperature (Unprotected)~\cite{SFPE:Milke2}}
 
-The HGL temperatures from the MQH HGL temperature correlation were used as the input fire temperature~$T\sb{f}$.
+The HGL temperatures from the MQH HGL temperature correlation were used as the input fire temperature~$T_{\rm f}$.
 
 \begin{table}[!ht]
 \caption[Validation input parameters for SP AST cases, unprotected steel temperature]
@@ -812,10 +812,10 @@ The HGL temperatures from the MQH HGL temperature correlation were used as the i
 \hline
                             &              \\
 \rb{Input Parameter}        &  \rb{Value}  \\ \hline \hline
-$\rho\sb{s}$ (kg/m$^3$)     &  7833        \\ \hline
-$c\sb{s}$ (\si{kJ/(kg.K)})  &  0.465       \\ \hline
+$\rho_{\rm s}$ (kg/m$^3$)     &  7833        \\ \hline
+$c_{\rm s}$ (\si{kJ/(kg.K)})  &  0.465       \\ \hline
 $\epsilon$                  &  0.7         \\ \hline
-$h\sb{c}$ (\si{W/(m^2.K)})  &  25          \\ \hline
+$h_{\rm c}$ (\si{W/(m^2.K)})  &  25          \\ \hline
 \end{tabular}
 \end{center}
 
@@ -823,8 +823,8 @@ $h\sb{c}$ (\si{W/(m^2.K)})  &  25          \\ \hline
 \begin{tabular}{|l|l|c|c|}
 \hline
            &                      &              &                    \\
-\rb{Test}  &  \rb{Correlation}    &  \rb{F/V}    &  \rb{$t\sb{end}$}  \\
-           &  \rb{for $T\sb{f}$}  &  \rb{(1/m)}  &  \rb{(s)}          \\ \hline \hline
+\rb{Test}  &  \rb{Correlation}    &  \rb{F/V}    &  \rb{$t_{\rm end}$}  \\
+           &  \rb{for $T_{\rm f}$}  &  \rb{(1/m)}  &  \rb{(s)}          \\ \hline \hline
 Test 1     &  MQH                 &  125         &  2400              \\ \hline
 Test 2     &  MQH                 &  157         &  2400              \\ \hline
 Test 3     &  MQH                 &  157         &  3600              \\ \hline
@@ -887,8 +887,8 @@ it is valid only above the flame region.
                             &                 \\
 \rb{Input Parameter}        &  \rb{Value}     \\ \hline \hline
 $z$ (m)                     &  1, 2, 3, 4, 5  \\ \hline
-$\chi\sb{r}$                &  0.40           \\ \hline
-$c\sb{p}$ (\si{kJ/(kg.K)})  &  1.0            \\ \hline
+$\chi_{\rm r}$                &  0.40           \\ \hline
+$c_{\rm p}$ (\si{kJ/(kg.K)})  &  1.0            \\ \hline
 $T_\infty$ (\si{\celsius})  &  20             \\ \hline
 \end{tabular}
 \end{center}
@@ -912,7 +912,7 @@ Heptane, 1.1 m  &  2275            &  2.83          \\ \hline
 
 \subsection*{Steel Temperature (Unprotected)~\cite{SFPE:Milke2}}
 
-The HGL temperatures from the McCaffrey plume temperature correlation were used as the input fire temperature~$T\sb{f}$.
+The HGL temperatures from the McCaffrey plume temperature correlation were used as the input fire temperature~$T_{\rm f}$.
 
 \begin{table}[!ht]
 \caption[Validation input parameters for SP AST Column cases, unprotected steel temperature]
@@ -924,10 +924,10 @@ The HGL temperatures from the McCaffrey plume temperature correlation were used 
                             &              \\
 \rb{Input Parameter}        &  \rb{Value}  \\ \hline \hline
 $F/V$ (1/m)                 &  205         \\ \hline
-$\rho\sb{s}$ (kg/m$^3$)     &  7833        \\ \hline
-$c\sb{s}$ (\si{kJ/(kg.K)})  &  0.465       \\ \hline
+$\rho_{\rm s}$ (kg/m$^3$)     &  7833        \\ \hline
+$c_{\rm s}$ (\si{kJ/(kg.K)})  &  0.465       \\ \hline
 $\epsilon$                  &  0.7         \\ \hline
-$h\sb{c}$ (\si{W/(m^2.K)})  &  25          \\ \hline
+$h_{\rm c}$ (\si{W/(m^2.K)})  &  25          \\ \hline
 \end{tabular}
 \end{center}
 
@@ -935,8 +935,8 @@ $h\sb{c}$ (\si{W/(m^2.K)})  &  25          \\ \hline
 \begin{tabular}{|l|l|c|c|}
 \hline
                 &                      &                 &                    \\
-\rb{Test}       &  \rb{Correlation}    &  \rb{$\dot Q$}  &  \rb{$t\sb{end}$}  \\
-                &  \rb{for $T\sb{f}$}  &  \rb{(kW)}      &  \rb{(s)}          \\ \hline \hline
+\rb{Test}       &  \rb{Correlation}    &  \rb{$\dot Q$}  &  \rb{$t_{\rm end}$}  \\
+                &  \rb{for $T_{\rm f}$}  &  \rb{(kW)}      &  \rb{(s)}          \\ \hline \hline
 Diesel, 1.1 m   &  McCaffrey           &  1434           &  1620              \\ \hline
 Diesel, 1.9 m   &  McCaffrey           &  1873           &  1080              \\ \hline
 Heptane, 1.1 m  &  McCaffrey           &  2275           &  900               \\ \hline
@@ -975,7 +975,7 @@ $\delta$ (m)              &  0.013       \\ \hline
 \begin{tabular}{|l|l|c|c|c|c|}
 \hline
            &                    &                 &                  &                  &                        \\
-\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$H\sb{o}$}  &  \rb{$W\sb{o}$}  &  \rb{$T_{\infty}$}     \\
+\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$H_{\rm o}$}  &  \rb{$W_{\rm o}$}  &  \rb{$T_{\infty}$}     \\
            &                    &  \rb{(kW)}      &  \rb{(m)}        &  \rb{(m)}        &  \rb{(\si{\celsius})}  \\ \hline \hline
 Test 10    &  MQH               &  62.9           &  1.83            &  0.24            &  22                    \\ \hline
 Test 11    &  MQH               &  62.9           &  1.83            &  0.36            &  25                    \\ \hline
@@ -1009,7 +1009,7 @@ Test 410   &  MQH               &  62.9           &  1.83            &  0.74    
 \begin{tabular}{|l|l|c|c|c|c|}
 \hline
            &                    &                 &                  &                  &                       \\
-\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$H\sb{o}$}  &  \rb{$W\sb{o}$}  & \rb{$T_{\infty}$}     \\
+\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$H_{\rm o}$}  &  \rb{$W_{\rm o}$}  & \rb{$T_{\infty}$}     \\
            &                    &  \rb{(kW)}      &  \rb{(m)}        &  \rb{(m)}        & \rb{(\si{\celsius})}  \\ \hline \hline
 Test 210   &  MQH               &  62.9           &  1.83            &  0.74            &  30                   \\ \hline
 Test 310   &  MQH               &  62.9           &  1.83            &  0.74            &  20                   \\ \hline
@@ -1093,8 +1093,8 @@ I-22       &  4600           \\ \hline
 
 \subsection*{Sprinkler Activation Time~\cite{SFPE:Alpert}}
 
-The fire growth was specified as $\dot Q = \alpha t^2$ up to a cutoff time of $t\sb{fire}$.
-After the time $t\sb{fire}$, the fire HRR was steady.
+The fire growth was specified as $\dot Q = \alpha t^2$ up to a cutoff time of $t_{\rm fire}$.
+After the time $t_{\rm fire}$, the fire HRR was steady.
 
 \begin{table}[!ht]
 \caption[Validation input parameters for UL/NFPRF cases, sprinkler activation time]
@@ -1108,7 +1108,7 @@ After the time $t\sb{fire}$, the fire HRR was steady.
 $\alpha$ (kW/s$^2$)          &  1.778       \\ \hline
 Location Factor              &  1           \\ \hline
 RTI (\si{(m.s)^{1/2}})       &  148         \\ \hline
-$T\sb{act}$ (\si{\celsius})  &  74          \\ \hline
+$T_{\rm act}$ (\si{\celsius})  &  74          \\ \hline
 $H$ (m)                      &  7.0         \\ \hline
 $T_\infty$ (\si{\celsius})   &  18          \\ \hline
 \end{tabular}
@@ -1118,7 +1118,7 @@ $T_\infty$ (\si{\celsius})   &  18          \\ \hline
 \begin{tabular}{|l|c|c||l|c|c|}
 \hline
            &                     &            &            &                     &            \\
-\rb{Test}  &  \rb{$t\sb{fire}$}  &  \rb{$r$}  & \rb{Test}  &  \rb{$t\sb{fire}$}  &  \rb{$r$}  \\
+\rb{Test}  &  \rb{$t_{\rm fire}$}  &  \rb{$r$}  & \rb{Test}  &  \rb{$t_{\rm fire}$}  &  \rb{$r$}  \\
            &  \rb{(s)}           &  \rb{(m)}  &            &  \rb{(s)}           &  \rb{(m)}  \\ \hline \hline
 I-1        &  50                 &  2.12      &  II-1      &  75                 &  1.5       \\ \hline
 I-2        &  50                 &  2.12      &  II-2      &  75                 &  1.5       \\ \hline
@@ -1154,8 +1154,8 @@ I-22       &  51                 &  2.12      &            &                    
 
 \subsection*{Plume Temperature (Heskestad and McCaffrey)~\cite{SFPE:Heskestad, McCaffrey:NBSIR_79-1910}}
 
-The fire growth was specified as $\dot Q = \alpha t^2$ up to a cutoff time of $t\sb{fire}$.
-After the time $t\sb{fire}$, the fire HRR was steady.
+The fire growth was specified as $\dot Q = \alpha t^2$ up to a cutoff time of $t_{\rm fire}$.
+After the time $t_{\rm fire}$, the fire HRR was steady.
 
 \begin{table}[!ht]
 \caption[Validation input parameters for USN Hawaii cases, plume temperature]
@@ -1167,8 +1167,8 @@ After the time $t\sb{fire}$, the fire HRR was steady.
                             &                         \\
 \rb{Input Parameter}        &  \rb{Value}             \\ \hline \hline
 $z$ (m)                     &  8.7, 11.8, 13.3, 14.5  \\ \hline
-$\chi\sb{r}$                &  0.40                   \\ \hline
-$c\sb{p}$ (\si{kJ/(kg.K)})  &  1.0                    \\ \hline
+$\chi_{\rm r}$                &  0.40                   \\ \hline
+$c_{\rm p}$ (\si{kJ/(kg.K)})  &  1.0                    \\ \hline
 \end{tabular}
 \end{center}
 
@@ -1176,7 +1176,7 @@ $c\sb{p}$ (\si{kJ/(kg.K)})  &  1.0                    \\ \hline
 \begin{tabular}{|l|c|c|c|c|c|}
 \hline
            &                   &                     &                  &                &                        \\
-\rb{Test}  &  \rb{$\alpha$}    &  \rb{$t\sb{fire}$}  &  \rb{$\dot Q$}   &  \rb{$A$}      &  \rb{$T_\infty$}       \\
+\rb{Test}  &  \rb{$\alpha$}    &  \rb{$t_{\rm fire}$}  &  \rb{$\dot Q$}   &  \rb{$A$}      &  \rb{$T_\infty$}       \\
            &  \rb{(kW/s$^2$)}  &  \rb{(s)}           &  \rb{(kW)}       &  \rb{(m$^2$)}  &  \rb{(\si{\celsius})}  \\ \hline \hline
 Test 1     &  0.00694          &  120                &  100             &  0.09          &  27                    \\ \hline
 Test 2     &  0.02222          &  150                &  500             &  0.36          &  28                    \\ \hline
@@ -1208,8 +1208,8 @@ Test 11    &  0.00444          &  150                &  100             &  0.09 
                             &                                \\
 \rb{Input Parameter}        &  \rb{Value}                    \\ \hline \hline
 $z$ (m)                     &  15.7, 17.2, 18.8, 20.3, 21.5  \\ \hline
-$\chi\sb{r}$                &  0.40                          \\ \hline
-$c\sb{p}$ (\si{kJ/(kg.K)})  &  1.0                           \\ \hline
+$\chi_{\rm r}$                &  0.40                          \\ \hline
+$c_{\rm p}$ (\si{kJ/(kg.K)})  &  1.0                           \\ \hline
 \end{tabular}
 \end{center}
 
@@ -1254,8 +1254,8 @@ Test 20    &  14850           &  9.00          &  14                    \\ \hlin
 {Summary of validation input parameters used for Vettori Flat cases~\cite{Vettori:1}, ceiling jet temperature.}
 
 Only the smooth, unobstructed ceiling tests were included in this study.
-The fire growth was specified as $\dot Q = \alpha t^2$ up to a cutoff time of $t\sb{fire}$.
-After the time $t\sb{fire}$, the fire HRR was steady.
+The fire growth was specified as $\dot Q = \alpha t^2$ up to a cutoff time of $t_{\rm fire}$.
+After the time $t_{\rm fire}$, the fire HRR was steady.
 
 \begin{center}
 \begin{tabular}{|l|c|}
@@ -1270,7 +1270,7 @@ $H$ (m)               &  2.075       \\ \hline
 \begin{tabular}{|l|c|c|l|c|c|}
 \hline
            &                   &                     &             &                 &                        \\
-\rb{Test}  &  \rb{$\alpha$}    &  \rb{$t\sb{fire}$}  &  \rb{$r$}   &  \rb{Location}  &  \rb{$T_\infty$}       \\
+\rb{Test}  &  \rb{$\alpha$}    &  \rb{$t_{\rm fire}$}  &  \rb{$r$}   &  \rb{Location}  &  \rb{$T_\infty$}       \\
            &  \rb{(kW/s$^2$)}  &  \rb{(s)}           &  \rb{(m)}   &  \rb{Factor}    &  \rb{(\si{\celsius})}  \\ \hline \hline
 Test 1     &  0.105            &  50                 &  2.2, 2.2   &  1              &  16.6                  \\ \hline
 Test 2     &  0.105            &  50                 &  2.2, 2.2   &  1              &  19.0                  \\ \hline
@@ -1321,7 +1321,7 @@ The fire growth was specified as $\dot Q = \alpha t^2$ up to the time of the fir
                              &              \\
 \rb{Input Parameter}         &  \rb{Value}  \\ \hline \hline
 RTI (\si{(m.s)^{1/2}})       &  55          \\ \hline
-$T\sb{act}$ (\si{\celsius})  &  68          \\ \hline
+$T_{\rm act}$ (\si{\celsius})  &  68          \\ \hline
 $H$ (m)                      &  2.09        \\ \hline
 \end{tabular}
 \end{center}
@@ -1371,9 +1371,9 @@ Test 43    &  0.0041           &  2.1       &  4              &  21.6           
 
 \subsection*{Plume Temperature (Heskestad and McCaffrey)~\cite{SFPE:Heskestad, McCaffrey:NBSIR_79-1910}}
 
-The fire ramp was specified as $\dot Q\sb{ramp}$ with a corresponding $t\sb{ramp}$.
+The fire ramp was specified as $\dot Q_{\rm ramp}$ with a corresponding $t_{\rm ramp}$.
 For example, a fire growing linearly over time 0~s to 100~s from 0~kW to 500~kW
-would be specified with a $t\sb{ramp}$ of [0, 100] and a $\dot Q\sb{ramp}$ of [0, 500].
+would be specified with a $t_{\rm ramp}$ of [0, 100] and a $\dot Q_{\rm ramp}$ of [0, 500].
 
 \begin{table}[!ht]
 \caption[Validation input parameters for VTT Large Hall cases, plume temperature]
@@ -1385,8 +1385,8 @@ would be specified with a $t\sb{ramp}$ of [0, 100] and a $\dot Q\sb{ramp}$ of [0
                             &              \\
 \rb{Input Parameter}        &  \rb{Value}  \\ \hline \hline
 $z$ (m)                     &  6, 12       \\ \hline
-$\chi\sb{r}$                &  0.40        \\ \hline
-$c\sb{p}$ (\si{kJ/(kg.K)})  &  1.0         \\ \hline
+$\chi_{\rm r}$                &  0.40        \\ \hline
+$c_{\rm p}$ (\si{kJ/(kg.K)})  &  1.0         \\ \hline
 \end{tabular}
 \end{center}
 
@@ -1394,7 +1394,7 @@ $c\sb{p}$ (\si{kJ/(kg.K)})  &  1.0         \\ \hline
 \begin{tabular}{|l|l|l|c|c|}
 \hline
            &                                  &                                            &                &                        \\
-\rb{Test}  &  \rb{$t\sb{ramp}$}               &  \rb{$\dot Q\sb{ramp}$}                    &  \rb{$A$}      &  \rb{$T_\infty$}       \\
+\rb{Test}  &  \rb{$t_{\rm ramp}$}               &  \rb{$\dot Q_{\rm ramp}$}                    &  \rb{$A$}      &  \rb{$T_\infty$}       \\
            &  \rb{(s)}                        &  \rb{(kW)}                                 &  \rb{(m$^2$)}  &  \rb{(\si{\celsius})}  \\ \hline \hline
 Test 1     &  13, 90, 288, 327, 409           &  1245, 1309, 1858, 1783, 1356              &  1.075         &  25                    \\ \hline
 Test 2     &  14, 30, 91, 193, 282, 340, 372  &  2151, 2542, 3063, 3259, 3129, 2737, 2281  &  2.01          &  22                    \\ \hline
@@ -1423,8 +1423,8 @@ Test 3     &  13, 63, 166, 256, 292, 330      &  2437, 3201, 3601, 3638, 3456, 2
 $L$ (m)               &  7.04        \\ \hline
 $W$ (m)               &  3.60        \\ \hline
 $H$ (m)               &  3.82        \\ \hline
-$H\sb{o}$ (m)         &  2.82        \\ \hline
-$W\sb{o}$ (m)         &  2.4         \\ \hline
+$H_{\rm o}$ (m)         &  2.82        \\ \hline
+$W_{\rm o}$ (m)         &  2.4         \\ \hline
 $k$ (\si{kW/(m.K)})   &  0.00012     \\ \hline
 $\rho$ (kg/m$^3$)     &  737         \\ \hline
 $c$ (\si{kJ/(kg.K)})  &  1.42        \\ \hline
@@ -1436,7 +1436,7 @@ $\delta$ (m)          &  0.0254      \\ \hline
 \begin{tabular}{|l|l|c|c|c|}
 \hline
            &                    &                 &                    &                        \\
-\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$t\sb{end}$}  &  \rb{$T_\infty$}       \\
+\rb{Test}  &  \rb{Correlation}  &  \rb{$\dot Q$}  &  \rb{$t_{\rm end}$}  &  \rb{$T_\infty$}       \\
            &                    &  \rb{(kW)}      &  \rb{(s)}          &  \rb{(\si{\celsius})}  \\ \hline \hline
 Test 1     &  MQH               &  2000           &  870               &  24                    \\ \hline
 Test 2     &  MQH               &  2400           &  380               &  25                    \\ \hline
@@ -1454,7 +1454,7 @@ Test 6     &  MQH               &  3000           &  3030              &  20    
 
 \subsection*{Steel Temperature (Unprotected)~\cite{SFPE:Milke2}}
 
-The HGL temperatures from the MQH HGL temperature correlation were used as the input fire temperature~$T\sb{f}$.
+The HGL temperatures from the MQH HGL temperature correlation were used as the input fire temperature~$T_{\rm f}$.
 The inputs for the MQH correlation are described in the WTC HGL temperature section.
 
 \begin{table}[!ht]
@@ -1466,10 +1466,10 @@ The inputs for the MQH correlation are described in the WTC HGL temperature sect
 \hline
                             &              \\
 \rb{Input Parameter}        &  \rb{Value}  \\ \hline \hline
-$\rho\sb{s}$ (kg/m$^3$)     &  7860        \\ \hline
-$c\sb{s}$ (\si{kJ/(kg.K)})  &  0.450       \\ \hline
+$\rho_{\rm s}$ (kg/m$^3$)     &  7860        \\ \hline
+$c_{\rm s}$ (\si{kJ/(kg.K)})  &  0.450       \\ \hline
 $\epsilon$                  &  0.7         \\ \hline
-$h\sb{c}$ (\si{W/(m^2.K)})  &  25          \\ \hline
+$h_{\rm c}$ (\si{W/(m^2.K)})  &  25          \\ \hline
 \end{tabular}
 \end{center}
 
@@ -1478,7 +1478,7 @@ $h\sb{c}$ (\si{W/(m^2.K)})  &  25          \\ \hline
 \hline
            &                      &                   &              \\
 \rb{Test}  &  \rb{Correlation}    &  \rb{Structural}  &  \rb{F/V}    \\
-           &  \rb{for $T\sb{f}$}  &  \rb{Element}     &  \rb{(1/m)}  \\ \hline \hline
+           &  \rb{for $T_{\rm f}$}  &  \rb{Element}     &  \rb{(1/m)}  \\ \hline \hline
 Test 1     &  MQH                 &  Bar              &  157         \\ \hline
 Test 2     &  MQH                 &  Bar              &  157         \\ \hline
 Test 3     &  MQH                 &  Bar              &  157         \\ \hline
@@ -1501,7 +1501,7 @@ Test 3     &  MQH                 &  Truss B          &  156         \\ \hline
 
 \subsection*{Steel Temperature (Protected)~\cite{SFPE:Milke2}}
 
-The HGL temperatures from the MQH HGL temperature correlation were used as the input fire temperature~$T\sb{f}$.
+The HGL temperatures from the MQH HGL temperature correlation were used as the input fire temperature~$T_{\rm f}$.
 The inputs for the MQH correlation are described in the WTC HGL temperature section.
 
 \begin{table}[!ht]
@@ -1513,10 +1513,10 @@ The inputs for the MQH correlation are described in the WTC HGL temperature sect
 \hline
                             &              \\
 \rb{Input Parameter}        &  \rb{Value}  \\ \hline \hline
-$c\sb{s}$ (\si{kJ/(kg.K)})  &  0.450       \\ \hline
-$k\sb{i}$ (\si{W/(m.K)})    &  0.10        \\ \hline
-$\rho\sb{i}$ (kg/m$^3$)     &  208         \\ \hline
-$c\sb{i}$ (\si{kJ/(kg.K)})  &  2.0         \\ \hline
+$c_{\rm s}$ (\si{kJ/(kg.K)})  &  0.450       \\ \hline
+$k_{\rm i}$ (\si{W/(m.K)})    &  0.10        \\ \hline
+$\rho_{\rm i}$ (kg/m$^3$)     &  208         \\ \hline
+$c_{\rm i}$ (\si{kJ/(kg.K)})  &  2.0         \\ \hline
 \end{tabular}
 \end{center}
 
@@ -1524,8 +1524,8 @@ $c\sb{i}$ (\si{kJ/(kg.K)})  &  2.0         \\ \hline
 \begin{tabular}{|l|l|l|c|c|}
 \hline
            &                      &                   &                  &                   \\
-\rb{Test}  &  \rb{Correlation}    &  \rb{Structural}  &  \rb{$h\sb{i}$}  &  \rb{W/D}         \\
-           &  \rb{for $T\sb{f}$}  &  \rb{Element}     &  \rb{(m)}        &  \rb{(kg/m$^2$)}  \\ \hline \hline
+\rb{Test}  &  \rb{Correlation}    &  \rb{Structural}  &  \rb{$h_{\rm i}$}  &  \rb{W/D}         \\
+           &  \rb{for $T_{\rm f}$}  &  \rb{Element}     &  \rb{(m)}        &  \rb{(kg/m$^2$)}  \\ \hline \hline
 Test 4     &  MQH                 &  Bar              &  0.0191          &  50.1             \\ \hline
 Test 5     &  MQH                 &  Bar              &  0.0191          &  50.1             \\ \hline
 Test 6     &  MQH                 &  Bar              &  0.0191          &  50.1             \\ \hline
@@ -1567,7 +1567,7 @@ IOR                   &  3, 3, -3, -3, 1, 2, 1, 2, 3, 3, -3, -3, -3, -3         
 \begin{tabular}{|l|c|c|c|}
 \hline
            &                 &                     &                \\
-\rb{Test}  &  \rb{$\dot Q$}  &  \rb{$\chi\sb{r}$}  &  \rb{$A$}      \\
+\rb{Test}  &  \rb{$\dot Q$}  &  \rb{$\chi_{\rm r}$}  &  \rb{$A$}      \\
            &  \rb{(kW)}      &                     &  \rb{(m$^2$)}  \\ \hline \hline
 Test 1     &  2000           &  0.44               &  1.258         \\ \hline
 Test 2     &  2400           &  0.39               &  1.455         \\ \hline

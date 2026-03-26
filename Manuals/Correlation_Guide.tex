@@ -16,21 +16,15 @@
 {\input{gitrevision}}
 {\newcommand{\gitrevision}{unknown} }
 
-
 % Math shortcuts
-\renewcommand{\sb}[1]{_\mathrm{#1}}
+%\renewcommand{_{\rm }[1]{_\mathrm{#1}}
 
-% PDF metadata
-\hypersetup{
-  pdftitle={Verification and Validation of Commonly Used Empirical Correlations for Fire Scenarios},
-  pdfauthor={Overholt, Kristopher J.},
-  pdfsubject={This document was created as part of a fire model verification and validation study conducted by the U.S. Nuclear Regulatory Commission (NRC), the Electric Power Research Institute (EPRI), and the National Institute of Standards and Technology (NIST). The results of this verification and validation study are summarized in NUREG-1824 Supplement 1, the Verification and Validation of Selected Fire Models for Nuclear Power Plant Applications. The focus of this document is to compare model predictions of empirical correlations that are commonly used in fire scenarios to various experimentally measured quantities (e.g., hot gas layer temperature, heat flux, plume temperature). A Fortran program was developed along with this document that automates the calculations of the empirical correlations and the verification and validation process. This automated verification and validation process is a method for maintaining the empirical correlations in the long term in a centralized location and enables model verification and validation to be performed on the empirical correlations in a systematic manner. This document is complementary to the verification and validation guides for the Consolidated Model of Fire and Smoke Transport (CFAST) and Fire Dynamics Simulator (FDS) fire models, which are maintained by NIST. The experimental data sets referred to in this study are described in more detail in the FDS Validation Guide (Volume 3 of the FDS Technical Reference Guide) and their respective test reports. For each quantity and empirical correlation, Sections 1 through 8 provide a short description of the governing equations, a verification example, and a validation scatter plot that shows model predictions compared to measured values. For each empirical correlation, the corresponding validation scatter plot lists the experimental relative standard deviation, model relative standard deviation, and bias factor.},
-  pdfkeywords={verification; validation; empirical correlations; fire dynamics}
-}
+\addbibresource{../../fds/Manuals/Bibliography/FDS_general.bib}
+\addbibresource{../../fds/Manuals/Bibliography/FDS_mathcomp.bib}
+\addbibresource{../../fds/Manuals/Bibliography/FDS_refs.bib}
 
 \begin{document}
 
-\bibliographystyle{unsrt}
 \pagestyle{empty}
 
 \begin{minipage}[t][9in][s]{6.25in}
@@ -49,26 +43,14 @@ for Fire Scenarios\\
 \normalsize
 
 \headerC{
-{
-\flushright{
-Kristopher J. Overholt
-
-\vspace*{2\baselineskip}
-
-\begingroup
-\hypersetup{urlcolor=black}
-\href{http://dx.doi.org/10.6028/NIST.SP.1169}{http://dx.doi.org/10.6028/NIST.SP.1169}
-\endgroup
+\flushright{Kristopher J. Overholt}
 }
 
 \vfill
 
-\flushright{
+\headerD{1169}
 
-\includegraphics[width=2.in]{../../fds/Manuals/Bibliography/nistident_flright_vec} \\[.3in]
-}
-}
-}
+\vfill
 
 \end{minipage}
 
@@ -96,19 +78,14 @@ for Fire Scenarios\\
 \flushright{
 Kristopher J. Overholt \\
 {\em Fire Research Division \\
-Engineering Laboratory} \\
+Engineering Laboratory} } }
 
-\vspace*{2\baselineskip}
 
-\begingroup
-\hypersetup{urlcolor=black}
-\href{http://dx.doi.org/10.6028/NIST.SP.1169}{http://dx.doi.org/10.6028/NIST.SP.1169} \\
-\endgroup
+\headerD{1169}
 
-\vspace*{2\baselineskip}
-
+\headerC{
 \flushright{\today \\
-	Revision:~\gitrevision}}}
+Revision:~\gitrevision}}
 
 \vfill
 
@@ -120,34 +97,15 @@ Engineering Laboratory} \\
 
 \newpage
 
-\begin{minipage}[t][9in][s]{6.25in}
 
-\flushright{Certain commercial entities, equipment, or materials may be identified in this \\
-document in order to describe an experimental procedure or concept adequately. \\
-Such identification is not intended to imply recommendation or endorsement by the \\
-National Institute of Standards and Technology, nor is it intended to imply that the \\
-entities, materials, or equipment are necessarily the best available for the purpose. \\
-}
-
-\vspace{3in}
-
-\large
-\flushright{\bf National Institute of Standards and Technology Special Publication 1169 \\
-Natl.~Inst.~Stand.~Technol.~Spec.~Publ.~1169, \pageref{LastPage} pages (March 2014) \\
-% http://dx.doi.org/10.6028/NIST.SP.1169 \\
-CODEN: NSPUE2 }
-
-\vfill
-
-\hspace{1in}
-
-\end{minipage}
+\disclaimer{1169}
 
 
 \clearpage
 
 
 \pagestyle{plain}
+\pagenumbering{roman}
 
 \chapter{Preface}
 
@@ -158,6 +116,8 @@ In 2014, the verification and validation study was expanded, and this document w
 The model evaluation process consists of two main components: verification and validation. Verification is a process to check the correctness of the solution of the governing equations. Verification does not imply that the governing equations are appropriate; only that the equations are being solved correctly.
 
 Validation is a process to determine the appropriateness of the governing equations as a mathematical model of the physical phenomena of interest. Typically, validation involves comparing model results with experimental measurement. Differences that cannot be attributed to uncertainty in the measured quantities in the experiment are attributed to the assumptions and simplifications of the physical model.
+
+\input{../../fds/Manuals/Bibliography/disclaimer}
 
 \cleardoublepage
 \phantomsection
@@ -223,7 +183,8 @@ WTC \> World Trade Center \\
 
 \include{Summary_Chapter}
 
-\bibliography{../../fds/Manuals/Bibliography/FDS_refs,../../fds/Manuals/Bibliography/FDS_general,../../fds/Manuals/Bibliography/FDS_mathcomp}
+\nopart %To Fix TOC in PDF output.
+\printbibliography[heading=bibintoc,title={References}]
 
 \appendix
 
